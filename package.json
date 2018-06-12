@@ -1,0 +1,22 @@
+{
+  "name": "faunaspotter",
+  "version": "1.0.0",
+  "description": "app for uploading wildlife records",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcallegari7/faunaspotter.git"
+  },
+  "author": "team3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fcallegari7/faunaspotter/issues"
+  },
+  "homepage": "https://github.com/fcallegari7/faunaspotter#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
