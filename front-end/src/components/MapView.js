@@ -24,8 +24,8 @@ const MapWithAMarkerClusterer = compose(
   withGoogleMap
 )(props =>
   <GoogleMap
-    defaultZoom={3}
-    defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
+    defaultZoom={13}
+    defaultCenter={{ lat: props.position.latitude, lng: props.position.longitude }}
     defaultOptions={{ styles: mapStyles }}
   >
     <MarkerClusterer
@@ -47,9 +47,16 @@ const MapWithAMarkerClusterer = compose(
 export default class MapView extends Component {
   componentWillMount() {
     this.setState({ markers: [] })
+    this.setState({ position: { latitude: 49.2245678, longitude: -123.1106257 } });
   }
 
   componentDidMount() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.setState({position: { latitude: position.coords.latitude, longitude: position.coords.longitude} });
+        });
+    }
+
     const url = [
       // Length issue
       `https://gist.githubusercontent.com`,
@@ -69,7 +76,7 @@ export default class MapView extends Component {
             <div>
                 <h2>Maps View</h2>
                 <p>The most beautiful well designed map ever!</p>
-                <MapWithAMarkerClusterer markers={this.state.markers} />
+                <MapWithAMarkerClusterer markers={this.state.markers} position={this.state.position} />
             </div>
         )
     }
