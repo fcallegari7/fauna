@@ -1,7 +1,7 @@
 // ChartView.js
 
-import React, { Component } from 'react'
-import * as d3 from 'd3'
+import React, { Component } from 'react';
+import * as d3 from 'd3';
 
 function chartview() {
 
@@ -12,7 +12,7 @@ function chartview() {
   var colour = d3.scaleOrdinal()
       .range(["lightgreen", "lightseagreen", "lightskyblue"]);
 
-  var canvas = d3.select("body")
+  var canvas = d3.select("#ChartD3")
               .append("svg")
               .attr("width", 500)
               .attr("height", 500);
@@ -26,7 +26,7 @@ function chartview() {
                 .attr("fill", function(d) { return colour(d.data); })
                 .attr("y", function(d, i) { return i * 100; });
 
-  var canvasdonut = d3.select("body")
+  var canvasdonut = d3.select("#ChartD3")
                     .append("svg")
                     .attr("width", 1000)
                     .attr("height", 1000);
@@ -69,6 +69,7 @@ export default class ChartView extends Component {
                 <h2>Chart View</h2>
                 <p>Some nice charts will be here</p>
                 <button id="button" onClick={chartview}>Click here</button>
+                <div id="ChartD3"></div>
             </div>
         )
     }
