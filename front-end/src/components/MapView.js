@@ -1,4 +1,4 @@
-// ListView.js
+// MapView.js
 
 import React, { Component } from 'react';
 import { compose, withProps, withHandlers } from "recompose"
