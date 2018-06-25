@@ -12,8 +12,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 var Logo = require('./fauna.jpg');
 
 
-
-
   class App extends Component {
     render() {
       return (
