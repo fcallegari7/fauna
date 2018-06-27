@@ -18,7 +18,6 @@ export default class ChartView extends Component {
                     <li><Link to={'/chart/bars'}>Bars Chart</Link></li>
                     <li><Link to={'/chart/pie'}>Pie Chart</Link></li>
                   </ul>
-                  <hr />
                   <Switch>
                       <Route exact path='/chart/' component={Top} />
                       <Route path= '/chart/bars' component={Bars} />
@@ -26,8 +25,6 @@ export default class ChartView extends Component {
                   </Switch>
               </div>
             </Router>
-
-
             </div>
         )
     }
