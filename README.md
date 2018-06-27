@@ -1,1 +1,1 @@
-# faunaspotter
+# fauna
