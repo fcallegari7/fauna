@@ -14,12 +14,12 @@ export default class Header extends Component {
         return (
           <Router>
             <div>
-                <Link to={'/map'}><img  src={Logo} alt="logo"/></Link>
+                <Link to={'/'}><img  src={Logo} alt="logo"/></Link>
                 <h2>Interactive Wildlife Locator</h2>
                 <ul>
+                  <li><Link to={'/'}>Map View</Link></li>
                   <li><Link to={'/list'}>List View</Link></li>
                   <li><Link to={'/chart'}>Chart View</Link></li>
-                  <li><Link to={'/'}>Map View</Link></li>
                 </ul>
                 <hr />
                 <Switch>
