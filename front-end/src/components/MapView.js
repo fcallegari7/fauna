@@ -74,8 +74,6 @@ export default class MapView extends Component {
   render() {
         return (
             <div>
-                <h2>Maps View</h2>
-                <p>The most beautiful well designed map ever!</p>
                 <MapWithAMarkerClusterer markers={this.state.markers} position={this.state.position} />
             </div>
         )

@@ -61,8 +61,6 @@ export default class ListView extends Component {
     render() {
         return (
             <div>
-                <h2>List View</h2>
-                <p>Display the cards</p>
                 <div>
                   <span>Page: {this.state.observations.page}</span>
                   <span>Per page: {this.state.observations.per_page}</span>
