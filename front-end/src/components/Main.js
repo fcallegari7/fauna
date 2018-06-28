@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import ListView from './ListView';
 import ChartView from './ChartView';
@@ -16,6 +16,7 @@ export default class Footer extends Component {
               <Route path='/chart' component={ChartView} />
               <Route path='/terms' component={Terms} />
               <Route path='/about' component={About} />
+              <Redirect to="/" />
           </Switch>
         )
     }
