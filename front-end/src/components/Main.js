@@ -7,7 +7,7 @@ import MapView from './MapView';
 import Terms from './Terms';
 import About from './About';
 
-export default class Footer extends Component {
+export default class Main extends Component {
     render() {
         return (
           <Switch>
