@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Terms from './Terms';
-import About from './About';
-
 export default class Footer extends Component {
     render() {
         return (
