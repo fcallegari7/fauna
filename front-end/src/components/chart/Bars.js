@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import {Bar} from 'react-chartjs-2';
+var ApiService = require('../../services/Api').default;
+var Api = new ApiService();
 
 export default class Bars extends Component {
 
