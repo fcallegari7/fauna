@@ -22,12 +22,11 @@ export default class Bars extends Component {
     //Ajax calls here
     this.setState({
       chartData: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'],
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         datasets: [
           {
             label: 'Number of sightings',
-            data: [5,3,8,10,15,18,17,20,12,11,6,4],
+            data: [2,7,8,4],
             backgroundColor: 'rgb(77,175,165)'
           }
         ]
@@ -44,14 +43,21 @@ export default class Bars extends Component {
               options={{
                 title: {
                   display: true,
-                  text: 'Black Bear',
+                  text: 'March 2018',
                   fontSize: 25
                 },
                 legend: {
                   display: true,
                   position: 'top'
-                }
-
+                },
+                  maintainAspectRatio: true,
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        beginAtZero: true
+                      }
+                    }]
+                  }
               }}
             />
 
