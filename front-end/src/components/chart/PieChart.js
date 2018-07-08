@@ -4,38 +4,30 @@ import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
 import { compose, withState, withHandlers } from "recompose";
 
+const nameList = [];
+const countList = [];
 
 export const PieChart = compose()(props => (
   <div>
     {props.value.map((item, key) => {
-      return <div key={key}>
-              {item.count}
-              {item.common_name}
-              </div>;
-      })}
+      nameList.push(item.common_name)
+      countList.push(item.count)
+      return
+    })}
+
     <Pie
       data={{
-        labels: [
-          "Animal 1",
-          "Animal 2",
-          "Animal 3",
-          "Animal 4",
-          "Animal 5",
-          "Animal 6",
-          "Animal 7"
-        ],
+        labels: nameList,
         datasets: [
           {
             label: "Number of sightings",
-            data: [2, 7, 8, 4, 10, 5, 6],
+            data: countList,
             backgroundColor: [
               "rgb(77,175,165)",
-              "lightblue",
+              "darkturquoise",
               "aquamarine",
               "limegreen",
-              "cornflowerblue",
-              "darkseagreen",
-              "lightgreen"
+              "cornflowerblue"
             ]
           }
         ]
@@ -43,14 +35,15 @@ export const PieChart = compose()(props => (
       options={{
         title: {
           display: true,
-          text: "% of Animals",
+          text: "Top 5 Animals",
           fontSize: 25
         },
         legend: {
           display: true,
           position: "top"
         }
-      }}
+      }
+    }
     />
   </div>
 ));

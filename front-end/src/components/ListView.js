@@ -16,14 +16,21 @@ export default class ListView extends Component {
         }
       }
     }
+
     componentDidMount() {
+      this.getListData();
+    }
+
+    getListData() {
       const action = 'observations';
-      const query = 'Black%20bear';
+      const query = '';
       const order = 'desc';
-      const order_by = 'created_at';
+      const order_by = 'observed_on';
       const page = '1';
-      const per_page = '1';
-      const url = `${action}?geo=true&mappable=true&identified=true&q=${query}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}`;
+      const per_page = '30';
+      const iconic_taxa =
+      "Animalia%2CAmphibia%2CArachnida%2CAves%2CInsecta%2CMammalia%2CMollusca%2CReptilia";
+      const url = `${action}?geo=true&mappable=true&identified=true&photo=true&q=${query}&iconic_taxa=${iconic_taxa}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}`;
       Api.get(url).then(data => {
         data.results = data.results.map((result, key) => {
           let photos = result.observation_photos.map((item, i) => {

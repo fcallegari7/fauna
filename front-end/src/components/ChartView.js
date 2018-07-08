@@ -30,11 +30,13 @@ export default class ChartView extends Component {
   getChartData() {
     const action = "observations/species_counts";
     const query = "";
-    const per_page = "7";
+    const per_page = "5";
+    const month = "5";
+    const year = "2017";
     const iconic_taxa =
-      "Animalia%2CAmphibia%2CArachnida%2CAves%2CChromista%2CFungi%2CInsecta%2CMammalia%2CMollusca%2CReptilia";
+      "Animalia%2CAmphibia%2CArachnida%2CAves%2CInsecta%2CMammalia%2CMollusca%2CReptilia";
 
-    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&per_page=${per_page}`;
+    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&month=${month}&year=${year}&per_page=${per_page}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         const observation = {
