@@ -1,76 +1,77 @@
 // ChartView.js
 
-import React, { Component } from 'react';
-import * as d3 from 'd3';
+import React, { Component } from "react";
+import Bars from "./chart/Bars";
 
-function chartview() {
+const { Top } = require("./chart/Top");
+const { PieChart } = require("./chart/PieChart");
 
-  var dataArray = [20, 40, 50];
-  var data = [10, 30, 60];
-  var r = 300;
+const {
+  SearchAutocompleteLocation
+} = require("./search/SearchAutocompleteLocation");
 
-  var colour = d3.scaleOrdinal()
-      .range(["lightgreen", "lightseagreen", "lightskyblue"]);
-
-  var canvas = d3.select("#ChartD3")
-              .append("svg")
-              .attr("width", 500)
-              .attr("height", 500);
-
-  var bars = canvas.selectAll("rect")
-              .data(dataArray)
-              .enter()
-                .append("rect")
-                .attr("width", function(d) { return d * 10; })
-                .attr("height", 50)
-                .attr("fill", function(d) { return colour(d.data); })
-                .attr("y", function(d, i) { return i * 100; });
-
-  var canvasdonut = d3.select("#ChartD3")
-                    .append("svg")
-                    .attr("width", 1000)
-                    .attr("height", 1000);
-
-  var group = canvasdonut.append("g")
-              .attr("transform", "translate(300,300)");
-
-  var arc = d3.arc()
-            .innerRadius(150)
-            .outerRadius(r);
-
-  var pie = d3.pie()
-            .value(function (d) { return d; });
-
-  var arcs = group.selectAll(".arc")
-            .data(pie(data))
-            .enter()
-            .append("g")
-            .attr("class", "arc");
-
-  arcs.append("path")
-      .attr("d", arc)
-      .attr("fill", function(d) { return colour(d.data); });
-
-  arcs.append("text")
-      .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
-      .attr("text-anchor", "middle")
-      .attr("font-size", "1.5em")
-      .text(function (d) {return d.data; });
-
-  document.getElementById("button").disabled = true;
-
-}
+var ApiService = require("../services/Api").default;
+var Api = new ApiService();
 
 export default class ChartView extends Component {
+  constructor() {
+    super();
+    this.state = {
+      observations: []
+    };
+  }
 
-    render() {
-        return (
-            <div>
-                <h2>Chart View</h2>
-                <p>Some nice charts will be here</p>
-                <button id="button" onClick={chartview}>Click here</button>
-                <div id="ChartD3"></div>
-            </div>
-        )
-    }
+  componentDidMount() {}
+
+  componentWillMount() {
+    this.getChartData();
+  }
+
+  getChartData() {
+    const action = "observations/species_counts";
+    const query = "";
+    const per_page = "7";
+    const iconic_taxa =
+      "Animalia%2CAmphibia%2CArachnida%2CAves%2CChromista%2CFungi%2CInsecta%2CMammalia%2CMollusca%2CReptilia";
+
+    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&per_page=${per_page}`;
+    Api.get(url).then(data => {
+      data.results = data.results.map((result, key) => {
+        const observation = {
+          count: result.count,
+          taxon_id: result.taxon.id,
+          common_name: result.taxon.preferred_common_name,
+          photo: result.taxon.default_photo.square_url,
+          wiki: result.taxon.wikipedia_url
+        };
+        return observation;
+      });
+
+      this.setState({ observations: data.results });
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Most sighted animal</h1>
+
+        <label>
+          Search Location
+          <SearchAutocompleteLocation
+            value={this.state.searchBy}
+            onChangeValue={this.getMarkers}
+            items={this.state.searchAutocomplete}
+            requestTimer={this.requestTimer}
+          />
+        </label>
+
+        <Top value={this.state.observations.slice(0, 1)} />
+        <Bars />
+        <PieChart
+          value={this.state.observations}
+        />
+      </div>
+    );
+  }
 }

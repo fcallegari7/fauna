@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import './App.css';
 import Header from './components/Header';
+import Main from './components/Main';
 import Footer from './components/Footer';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
 
 
   class App extends Component {
     render() {
       return (
-      <div>
-        <Header />
-
-        <Footer />
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <Main />
+          <Footer />
+        </div>
+      </Router>
       );
     }
   }
