@@ -29,7 +29,7 @@ export default class ListView extends Component {
       const page = '1';
       const per_page = '30';
       const iconic_taxa =
-      "Animalia%2CAmphibia%2CArachnida%2CAves%2CInsecta%2CMammalia%2CMollusca%2CReptilia";
+      "Animalia%2CAmphibia%2CAves%2CMammalia%2CMollusca%2CReptilia";
       const url = `${action}?geo=true&mappable=true&identified=true&photo=true&q=${query}&iconic_taxa=${iconic_taxa}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}`;
       Api.get(url).then(data => {
         data.results = data.results.map((result, key) => {
