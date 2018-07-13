@@ -2,9 +2,8 @@
 
 import React, { Component } from "react";
 import Bars from "./chart/Bars";
-
-const { Top } = require("./chart/Top");
-const { PieChart } = require("./chart/PieChart");
+import PieChart from "./chart/PieChart";
+import Top from "./chart/Top";
 
 const {
   SearchAutocompleteLocation
@@ -17,24 +16,23 @@ export default class ChartView extends Component {
   constructor() {
     super();
     this.state = {
-      observations: []
+      observations: [],
+      month: '',
+      year: ''
     };
   }
 
-  componentDidMount() {}
-
-  componentWillMount() {
-    this.getChartData();
-  }
-
-  getChartData() {
+  componentDidMount() {
     const action = "observations/species_counts";
     const query = "";
-    const per_page = "7";
+    const per_page = "5";
+    let m = new Date();
+    let month = m.getMonth();
+    let year = m.getFullYear();
     const iconic_taxa =
-      "Animalia%2CAmphibia%2CArachnida%2CAves%2CChromista%2CFungi%2CInsecta%2CMammalia%2CMollusca%2CReptilia";
+      "Animalia%2CAmphibia%2CAves%2CMammalia%2CMollusca%2CReptilia";
 
-    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&per_page=${per_page}`;
+    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&month=${month}&year=${year}&per_page=${per_page}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         const observation = {
@@ -47,30 +45,55 @@ export default class ChartView extends Component {
         return observation;
       });
 
-      this.setState({ observations: data.results });
+      this.setState({
+        observations: data.results,
+        month: month + 1,
+        year: year
+       });
+
+
     });
   }
+
+
+  refineLocation(location){
+
+  }
+
+
+
+  decreaseDate(){
+      console.log("decreasing");
+    }
+
+  increaseDate(){
+      console.log("increasing");
+    }
 
   render() {
     return (
       <div>
-        <h1>Most sighted animal</h1>
-
         <label>
           Search Location
           <SearchAutocompleteLocation
             value={this.state.searchBy}
-            onChangeValue={this.getMarkers}
+            onChangeValue={this.refineLocation}
             items={this.state.searchAutocomplete}
             requestTimer={this.requestTimer}
           />
         </label>
 
+        <button onClick={this.decreaseDate}>
+          BACK
+        </button>
+
+        <button onClick={this.increaseDate}>
+          FWD
+        </button>
+
         <Top value={this.state.observations.slice(0, 1)} />
-        <Bars />
-        <PieChart
-          value={this.state.observations}
-        />
+        <Bars value={this.state.observations.slice(0,1)} monthValue={this.state.month} yearValue={this.state.year} />
+        <PieChart value={this.state.observations} />
       </div>
     );
   }
