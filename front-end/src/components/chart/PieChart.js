@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
 
-
 export default class PieChart extends Component {
   constructor(props){
     super(props);
@@ -13,12 +12,12 @@ export default class PieChart extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.value == this.props.value) {
+    if(prevProps.value === this.props.value) {
       return;
     }
 
-    const labels = this.props.value.map((item) => item.common_name)
-    const values = this.props.value.map((item) => item.count)
+    const labels = this.props.value.map((item) => item.common_name);
+    const values = this.props.value.map((item) => item.count);
 
     this.setState({
       chartData: {

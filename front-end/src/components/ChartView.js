@@ -20,19 +20,33 @@ export default class ChartView extends Component {
       month: '',
       year: ''
     };
+    this.decreaseDate = this.decreaseDate.bind(this);
+    this.increaseDate = this.increaseDate.bind(this);
+  }
+
+  componentWillMount() {
+    let m = new Date();
+    let month = m.getMonth() + 1;
+    let year = m.getFullYear();
+
+    this.setState({
+      month: month,
+      year: year
+    });
   }
 
   componentDidMount() {
+    this.getChartData();
+  }
+
+  getChartData() {
     const action = "observations/species_counts";
     const query = "";
     const per_page = "5";
-    let m = new Date();
-    let month = m.getMonth();
-    let year = m.getFullYear();
     const iconic_taxa =
       "Animalia%2CAmphibia%2CAves%2CMammalia%2CMollusca%2CReptilia";
 
-    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&month=${month}&year=${year}&per_page=${per_page}`;
+    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&month=${this.state.month}&year=${this.state.year}&per_page=${per_page}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         const observation = {
@@ -47,28 +61,59 @@ export default class ChartView extends Component {
 
       this.setState({
         observations: data.results,
-        month: month + 1,
-        year: year
-       });
+      });
 
+      console.log(`count: ${this.state.observations[0].count} + month: ${this.state.month}`)
 
     });
   }
 
-
-  refineLocation(location){
+  refineLocation(location) {
 
   }
 
-
-
-  decreaseDate(){
-      console.log("decreasing");
+  decreaseDate() {
+    let currentMonth = this.state.month;
+    let currentYear = this.state.year;
+    let newMonth;
+    let newYear;
+    if (currentMonth > 1) {
+      newMonth = currentMonth - 1;
+      newYear = this.state.year;
+    } else if (currentMonth === 1) {
+      newMonth = 12;
+      newYear = currentYear - 1;
     }
+    this.setState({
+      month: newMonth,
+      year: newYear
+    });
+    this.getChartData();
+  }
 
-  increaseDate(){
-      console.log("increasing");
+  increaseDate() {
+    let currentMonth = this.state.month;
+    let currentYear = this.state.year;
+    let newMonth;
+    let newYear;
+    let m = new Date();
+    let month = m.getMonth() + 1;
+    let year = m.getFullYear();
+    if (currentMonth === month && currentYear === year) {
+      return;
+    } else if (currentMonth < 12) {
+      newMonth = currentMonth + 1;
+      newYear = this.state.year;
+    } else if (currentMonth === 12) {
+      newMonth = 1;
+      newYear = currentYear + 1;
     }
+    this.setState({
+      month: newMonth,
+      year: newYear
+    })
+    this.getChartData();
+  }
 
   render() {
     return (

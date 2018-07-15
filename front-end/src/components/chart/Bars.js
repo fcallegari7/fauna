@@ -14,7 +14,7 @@ export default class Bars extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.value == this.props.value) {
+    if(prevProps.value === this.props.value) {
       return;
     }
     //Ajax calls here
@@ -31,13 +31,12 @@ export default class Bars extends Component {
     Api.get(url).then(data => {
       const observation = data.results.day;
 
-
       var labels = Object.keys(observation).map((e) => parseInt(e.slice(-2)));
       var values = Object.keys(observation).map((e) => observation[e]);
 
       let m = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      let d = new Date();
-      let name = m[d.getMonth()];
+
+      let name = m[this.props.monthValue - 1];
 
       this.setState({
         chartData: {
@@ -53,9 +52,7 @@ export default class Bars extends Component {
         monthName: name,
         yearNumber: this.props.yearValue
       });
-
     });
-
   }
 
   render() {
@@ -93,5 +90,5 @@ export default class Bars extends Component {
       <div>Loading...</div>
     );
   }
-}
+  }
 }

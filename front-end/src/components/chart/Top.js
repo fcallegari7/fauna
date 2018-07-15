@@ -14,7 +14,7 @@ export default class Top extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.value == this.props.value) {
+    if(prevProps.value === this.props.value) {
       return;
     }
 
@@ -36,7 +36,7 @@ export default class Top extends Component {
       return (
         <div>
           <h1>Most sighted animal</h1>
-          <img src={this.state.photo} />
+          <img src={this.state.photo} alt="most sighted animal"/>
           <p>{this.state.name}</p>
           <p>{this.state.count}</p>
           <p>{this.state.wikipedia}</p>
