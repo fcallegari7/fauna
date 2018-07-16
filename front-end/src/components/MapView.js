@@ -15,6 +15,7 @@ export default class MapView extends Component {
   }
   componentWillMount() {
     this.setState({ markers: [] });
+    this.setState({ loading: false });
     this.setState({ searchBy: "" });
     this.setState({ searchAutocomplete: [] });
     this.setState({
@@ -51,10 +52,18 @@ export default class MapView extends Component {
         return {
           key: key,
           longitude: parseFloat(result.geojson.coordinates[0]),
-          latitude: parseFloat(result.geojson.coordinates[1])
+          latitude: parseFloat(result.geojson.coordinates[1]),
+          place: result.place_guess,
+          photos: [result.taxon.default_photo.url].concat(result.photos.map(item => item.url)),
+          time_observed_at: result.time_observed_at,
+          observations_count: result.taxon.observations_count,
+          name: result.taxon.preferred_common_name,
+          wikipedia_url: result.taxon.wikipedia_url
         };
       });
-      this.setState({ markers: data.results });
+      if (this.state.loading===false){
+        this.setState({ markers: data.results, loading: true });
+      }
     });
   }
 
@@ -62,7 +71,7 @@ export default class MapView extends Component {
 
   render() {
     return (
-      <div>
+      <div className='wrapper'>
         <form action="#">
           <label>
             Search by
@@ -76,7 +85,7 @@ export default class MapView extends Component {
         </form>
         <MapWithAMarkerClusterer
           markers={this.state.markers}
-          position={this.state.position}
+          center={this.state.position}
         />
       </div>
     );

@@ -2,55 +2,68 @@
 
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
-import { compose, withState, withHandlers } from "recompose";
 
+export default class PieChart extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      chartData: {}
+    };
+  }
 
-export const PieChart = compose()(props => (
-  <div>
-    {props.value.map((item, key) => {
-      return <div key={key}>
-              {item.count}
-              {item.common_name}
-              </div>;
-      })}
-    <Pie
-      data={{
-        labels: [
-          "Animal 1",
-          "Animal 2",
-          "Animal 3",
-          "Animal 4",
-          "Animal 5",
-          "Animal 6",
-          "Animal 7"
-        ],
+  componentDidUpdate(prevProps) {
+    if(prevProps.value === this.props.value) {
+      return;
+    }
+
+    const labels = this.props.value.map((item) => item.common_name);
+    const values = this.props.value.map((item) => item.count);
+
+    this.setState({
+      chartData: {
+        labels: labels,
         datasets: [
           {
             label: "Number of sightings",
-            data: [2, 7, 8, 4, 10, 5, 6],
+            data: values,
             backgroundColor: [
               "rgb(77,175,165)",
-              "lightblue",
               "aquamarine",
               "limegreen",
-              "cornflowerblue",
-              "darkseagreen",
-              "lightgreen"
+              "darkturquoise",
+              "rgb(3,145,200)"
             ]
           }
         ]
-      }}
-      options={{
-        title: {
-          display: true,
-          text: "% of Animals",
-          fontSize: 25
-        },
-        legend: {
-          display: true,
-          position: "top"
-        }
-      }}
-    />
-  </div>
-));
+      }
+    });
+  }
+
+
+  render() {
+    if (Object.keys(this.state.chartData).length > 0) {
+      return (
+        <div>
+          <Pie
+            data={this.state.chartData}
+            options={{
+              title: {
+                display: true,
+                text: "Top 5 Animals",
+                fontSize: 25
+              },
+              legend: {
+                display: true,
+                position: "top"
+              }
+            }}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>Loading...</div>
+      );
+    }
+  }
+}
