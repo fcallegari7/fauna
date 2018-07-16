@@ -37,21 +37,13 @@ export default class ListView extends Component {
             return (<li key={i}> <img src={item.photo.url} alt="" /></li>);
           });
           return (<li key={key}>
-              <p>Id : {result.id}</p>
-              <p>geojson coordinates: {JSON.stringify(result.geojson.coordinates)}</p>
-              <p>geojson type: {result.geojson.type}</p>
-              <p>identifications_count: {result.identifications_count}</p>
               <p>default_photo: <img src={result.taxon.default_photo.square_url} alt="" /></p>
-              <div>observation_photos: <ul>{photos}</ul></div>
-              <p>observed_on: {result.observed_on}</p>
+              <p>{result.taxon.preferred_common_name}</p>
               <p>place_guess: {result.place_guess}</p>
-              <p>positional_accuracy: {result.positional_accuracy}</p>
-              <p>species_guess: {result.species_guess}</p>
-              <p>time_observed_at: {result.time_observed_at}</p>
-              <p>uri: {result.uri}</p>
+              {/* <div>observation_photos: <ul>{photos}</ul></div> */}
+              <p>observed_on: {result.observed_on}</p>
+              <p>Count: {result.taxon.observations_count}</p>
               <p>wikipedia_url: {result.taxon.wikipedia_url}</p>
-              <p>observations_count: {result.taxon.observations_count}</p>
-              <p>preferred_common_name: {result.taxon.preferred_common_name}</p>
             </li>);
         });
 
@@ -67,7 +59,7 @@ export default class ListView extends Component {
 
     render() {
         return (
-            <div>
+            <div className='wrapper'>
                 <div>
                   <span>Page: {this.state.observations.page}</span>
                   <span>Per page: {this.state.observations.per_page}</span>
