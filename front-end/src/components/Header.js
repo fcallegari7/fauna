@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-var Logo = require('../fauna.jpg');
+var Logo = require('../images/fauna.jpg');
 
 export default class Header extends Component {
     render() {
