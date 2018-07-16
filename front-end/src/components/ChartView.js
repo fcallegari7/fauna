@@ -117,7 +117,7 @@ export default class ChartView extends Component {
 
   render() {
     return (
-      <div>
+      <div className='wrapper chart-wrapper'>
         <label>
           Search Location
           <SearchAutocompleteLocation
@@ -136,7 +136,9 @@ export default class ChartView extends Component {
           FWD
         </button>
 
-        <Top value={this.state.observations.slice(0, 1)} />
+        <div className='top'>
+          <Top value={this.state.observations.slice(0, 1)} />
+        </div>
         <Bars value={this.state.observations.slice(0,1)} monthValue={this.state.month} yearValue={this.state.year} />
         <PieChart value={this.state.observations} />
       </div>

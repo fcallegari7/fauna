@@ -62,7 +62,7 @@ export default class MapView extends Component {
 
   render() {
     return (
-      <div>
+      <div className='wrapper'>
         <form action="#">
           <label>
             Search by

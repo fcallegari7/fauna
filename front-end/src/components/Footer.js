@@ -5,11 +5,11 @@ export default class Footer extends Component {
     render() {
         return (
           <footer>
-              <hr />
-              <ul>
-                <li><Link to={'/terms'}>Terms and Conditions</Link></li>
-                <li><Link to={'/about'}>About</Link></li>
-              </ul>
+              <div className='footer-text'>
+                <Link to={'/terms'}>Terms and Conditions</Link>
+                <span>|</span>
+                <Link to={'/about'}>About</Link>
+              </div>
           </footer>
         )
     }
