@@ -25,6 +25,7 @@ export default class PieChart extends Component {
         datasets: [
           {
             label: "Number of sightings",
+            fontFamily: "'Open Sans', 'sans serif'",
             data: values,
             backgroundColor: [
               "rgb(77,175,165)",

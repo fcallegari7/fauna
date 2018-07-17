@@ -4,6 +4,10 @@ html, body{
   margin: 0;
 }
 
+body {
+  background-image: url('MapDesaturated.png');
+}
+
 .wrapper{
   margin-top: 100px;
   margin-bottom: 50px;
@@ -44,14 +48,14 @@ header{
 
 /* =========== One-liner Styles ============== */
 
-.one-liner{
+.one-liner {
+  display: none;
   text-align: center;
   color: #03B2A5;
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   font-size: 18pt;
   margin-top: 29px;
-
 }
 
 
@@ -133,10 +137,162 @@ footer span{
   font-family: "Raleway",sans-serif;
   font-weight: 300;
   font-size: 12pt;
+  margin: auto .4rem;
 }
 
 /* ============ Chart View Styles ============*/
 
 .chart-wrapper {
   display: flex;
+  flex-flow: column wrap;
+  font-family: 'Open Sans', sans-serif;
+  align-items: center;
+}
+
+.chart-search {
+  align-self: center;
+  width: 100%;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #696969;
+}
+
+.chart-components {
+  width: 100vw;
+}
+
+.charts div {
+  margin: 1rem;
+  box-shadow: .6px .6px .6px .6px #03B2A5;
+  border-radius: 20px;
+  padding: .8rem;
+  background: white;
+}
+
+.chart-navigation {
+  margin: 1rem auto;
+  margin: .2rem 2rem;
+  border-radius: 20px;
+  box-shadow: .6px .6px .6px .6px #03B2A5;
+  display: flex;
+  justify-content: center;
+  background: white;
+}
+
+.chart-navigation button {
+  border-radius: 50px;
+  font-size: 1.5rem;
+  margin: 1rem;
+  padding: 0 1rem;
+  color: #03B2A5;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.chart-navigation button:hover {
+  color: #0575e6;
+}
+
+.top {
+  width: 220px;
+  max-height: 600px;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0;
+  padding-bottom: .4rem;
+  box-shadow: .6px .6px .6px .6px #03B2A5;
+  border-radius: 20px;
+  background: white;
+}
+
+.top-info {
+  margin-top: .4rem;
+  border-top: 2px solid #03B2A5;
+}
+
+.top-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.8rem;
+  color: #03B2A5;
+  text-shadow: .5px .5px rgba(0,0,0,.5);
+}
+
+.top-img {
+  width: 50%;
+  box-shadow: 1px 1px 1px .2px rgba(0,0,0,.5);
+  margin: .2rem 24%;
+  align-self: center;
+}
+
+.top-name {
+  font-size: 1.6rem;
+  background: white;
+  color: #696969;
+  width: 80%;
+  text-align: center;
+  font-family: "Open Sans",sans-serif;
+  font-weight: bold;
+  margin: .2rem auto;
+  padding: .1rem 0;
+  border-radius: 0;
+}
+
+.top-name:first-of-type{
+  margin-top: .4rem;
+}
+
+.top-label {
+  font-family: "Raleway",sans-serif;
+  font-size: 1rem;
+  margin: auto .2rem;
+}
+
+.top-link {
+  font-family: "Raleway",sans-serif;
+  text-align: center;
+  font-size: .8rem;
+}
+
+.top-link a {
+  color: #03B2A5;
+  text-decoration: none;
+}
+
+.top-link a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (min-width: 800px) {
+
+  .one-liner {
+    display: block;
+  }
+
+  .chart-components {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+
+  .top {
+    grid-column: 1/2;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    max-height: 600px;
+    height: fit-content;
+  }
+
+  .charts {
+    grid-column: 2/4;
+    margin-right: 1rem;
+  }
+
+
+
+
+
+
+
 }

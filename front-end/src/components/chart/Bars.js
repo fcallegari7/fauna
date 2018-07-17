@@ -64,11 +64,13 @@ export default class Bars extends Component {
           options={{
             title: {
               display: true,
-              text: `${this.state.monthName} ${this.state.yearNumber}`,
-              fontSize: 25
+              text: 'Number of sightings',
+              // text: `${this.state.monthName} ${this.state.yearNumber}`,
+              fontSize: 25,
+              fontFamily: "'Open Sans', 'sans serif'"
             },
             legend: {
-              display: true,
+              display: false,
               position: "top"
             },
             maintainAspectRatio: true,
