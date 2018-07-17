@@ -35,11 +35,13 @@ export default class Top extends Component {
     if (Object.keys(this.state.photo).length > 0) {
       return (
         <div>
-          <h1>Most sighted animal</h1>
-          <img src={this.state.photo} alt="most sighted animal"/>
-          <p>{this.state.name}</p>
-          <p>{this.state.count}</p>
-          <p>{this.state.wikipedia}</p>
+          <h2 className="top-title">Most Sighted</h2>
+          <img className='top-img' src={this.state.photo} alt="most sighted animal"/>
+          <div className='top-info'>
+            <p className='top-name'>{this.state.name}</p>
+            <p className='top-name'>{this.state.count}<span className='top-label'>times</span></p>
+          </div>
+          <p className='top-link'><a href={this.state.wikipedia} target='_blank'>Learn more</a></p>
         </div>
       )
     } else {
