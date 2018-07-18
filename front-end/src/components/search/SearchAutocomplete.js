@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, withState, withHandlers } from "recompose";
+import { compose, withState, withHandlers, withProps} from "recompose";
 import Autocomplete from 'react-autocomplete';
 
 var ApiService = require('../../services/Api').default;
@@ -9,11 +9,14 @@ export const SearchAutocomplete = compose(
   withState('value', 'setValue', ''),
   withState('items', 'setItems', []),
   withState('requestTimer', 'setRequestTimer', null),
+  withProps({
+    requestTimer: null,
+  }),
   withHandlers({
-    onSelect: ({setValue, setItems, onChangeValue}) => (searchBy) => {
-      setValue(searchBy);
-      onChangeValue(searchBy);
+    onSelect: ({setValue, setItems, onChangeValue}) => (searchBy, item) => {
+      setValue('');
       setItems([]);
+      onChangeValue(item);
     },
     onChange: ({setValue, setItems, requestTimer, setRequestTimer}) => (event, searchBy) => {
       setValue(searchBy);
@@ -27,11 +30,11 @@ export const SearchAutocomplete = compose(
         setTimeout(function(){
           Api.get(url_taxa).then(taxon => {
             taxon.results = taxon.results.slice(0,per_page).map(item => {
-              return {id: item.id, name: item.preferred_common_name};
+              return {id: item.id, type: 'animal', name: item.preferred_common_name};
             });
             Api.get(url_places).then(places => {
               places.results = places.results.map(item => {
-                return {id: item.id, name: item.display_name};
+                return {id: item.id, type: 'place', name: item.display_name};
               });
               const results = taxon.results.concat(places.results);
               setItems(results);
@@ -48,6 +51,9 @@ export const SearchAutocomplete = compose(
     getItemValue={(item) => item.name}
     onSelect={props.onSelect}
     onChange={props.onChange}
+    inputProps={{
+      placeholder: "Search"
+    }}
     renderMenu={children => (
       <div className="menu">
         {children}
@@ -57,7 +63,30 @@ export const SearchAutocomplete = compose(
       <div
         className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
         key={item.id}
-      >{item.name}</div>
+      >
+        {item.name}
+      </div>
     )}
+    menuStyle={{
+      borderRadius: '3px',
+      boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+      background: 'rgba(255, 255, 255, 0.9)',
+      padding: '2px 0',
+      fontSize: '90%',
+      position: 'absolute',
+      overflow: 'auto',
+      maxHeight: '50%', // TODO: don't cheat, let it flow to the bottom
+    }}
   />
 );
+/*
+
+- create a list of tags
+- separete location and Animal
+- when click on animal search using the boudaries of the visible map
+- when click on city center the map on the city
+- allow to remove elmento form the ListView
+- Do the css for the map
+- create filters functionality
+
+*/

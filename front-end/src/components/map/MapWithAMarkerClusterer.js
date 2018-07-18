@@ -4,8 +4,8 @@ import { compose, withProps, withHandlers, withStateHandlers } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 const mapStyles = require("./mapStyles");
-const pinUrl = require('../../images/logo.svg');
-const clusterUrl = require('../../images/fox.svg');
+const pinIcon = require('../../images/pin.svg');
+const clusterIcon = require('../../images/pin.svg');
 
 export const MapWithAMarkerClusterer = compose(
   withProps({
@@ -35,18 +35,27 @@ export const MapWithAMarkerClusterer = compose(
   <GoogleMap
     defaultZoom={13}
     defaultCenter={{ lat: props.center.latitude, lng: props.center.longitude }}
-    defaultOptions={{ styles: mapStyles }}
+    defaultOptions={{
+      styles: mapStyles,
+      disableDefaultUI: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      zoomControl: true,
+      streetViewControl: false,
+      fullscreenControl: false,
+    }}
   >
     <MarkerClusterer
       onClick={props.onMarkerClustererClick}
       averageCenter
       enableRetinaIcons
       gridSize={60}
+      defaultClusterClass="cluster"
       styles={[{
-        textColor: 'white',
-        url: clusterUrl,
-        width: 50,
-        height: 50
+        url: clusterIcon,
+        textColor: '#03B2A5',
+        width: 36,
+        height: 48
       }]}
     >
       {props.markers.map(marker => (
@@ -55,7 +64,7 @@ export const MapWithAMarkerClusterer = compose(
           position={{ lat: marker.latitude, lng: marker.longitude }}
           onClick={ ()=>{props.onToggleOpen(marker.key)} }
           icon={{
-            url: pinUrl
+            url: pinIcon
           }}
         >
           { (props.isOpen===marker.key) && <InfoWindow onCloseClick={props.onToggleOpen}>
