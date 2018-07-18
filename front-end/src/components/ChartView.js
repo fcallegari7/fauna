@@ -4,7 +4,6 @@ import React, { Component } from "react";
 import Bars from "./chart/Bars";
 import PieChart from "./chart/PieChart";
 import Top from "./chart/Top";
-var MapDes = require('../css/MapDesaturated.png');
 
 const {
   SearchAutocompleteLocation

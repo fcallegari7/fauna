@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-var Logo = require('../css/Logo.svg');
-var Name = require('../css/Name.svg');
-var MapViewIcon = require('../css/MapView.svg');
-var ListViewIcon = require('../css/ListView.svg');
-var StatsViewIcon = require('../css/StatsView.svg');
-var SearchIcon = require('../css/SearchIcon.svg');
+var Logo = require('../images/logo.svg');
+var Name = require('../images/name.svg');
+var MapViewIcon = require('../images/mapview.svg');
+var ListViewIcon = require('../images/listview.svg');
+var StatsViewIcon = require('../images/statsview.svg');
+var SearchIcon = require('../images/searchicon.svg');
 
 export default class Header extends Component {
     render() {
