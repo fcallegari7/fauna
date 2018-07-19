@@ -2,11 +2,12 @@
 
 html, body{
   margin: 0;
+  background:url("MapDesaturated.png") no-repeat center center fixed;
+  background-size: cover;
 }
 
 .wrapper{
   margin-top: 100px;
-  margin-bottom: 50px;
 }
 
 header{
@@ -16,12 +17,21 @@ header{
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: white;
-  max-height: 100px;
+  height: 100px;
 }
 
 .block{
   flex: 1 0 30%;
+}
+
+p{
+  font-family: 'Raleway', sans-serif;
+}
+
+.numbers{
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* =========== Logo Styles ============== */
@@ -103,7 +113,7 @@ nav ul li{
 }
 
 
-/* ================== Fotter Styles ===================== */
+/* ================== Footer Styles ===================== */
 footer{
   width: 100%;
   height: 30px;
@@ -133,10 +143,127 @@ footer span{
   font-family: "Raleway",sans-serif;
   font-weight: 300;
   font-size: 12pt;
+  padding:0 0.5rem;
 }
+
+
+/* ============ List View Styles ============*/
+
+.list-wrapper{
+  max-width: 900px;
+  margin: auto;
+  margin-top: 100px;
+  background-color: white;
+
+  padding: 1rem;
+}
+
+.card-list{
+  list-style-type: none;
+  padding-left: 0;
+  max-width: 780px;
+  margin: auto;
+}
+
+.animal-name{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+
+.list-wrapper a{
+  font-family: "raleway", sans-serif;
+  text-decoration: none;
+  margin: 1rem 0;
+  color: #03B2A5;
+}
+
+.list-wrapper a:hover{
+  text-decoration: underline;
+}
+
+.list-wrapper li{
+  border-top: 2px solid #03B2A5;
+  padding: 1rem 0;
+  display: grid;
+}
+
+.list-wrapper li:first-of-type{
+  border-top: none;
+}
+
+.list-wrapper .photo img{
+  width: 200px;
+  margin: auto;
+  max-width: 100%;
+}
+
+@media only screen and (min-width: 800px) {
+
+  .list-wrapper li{
+    grid-template-columns: 150px 1fr 1fr;
+  }
+
+  .list-wrapper li p{
+    margin: 0;
+    padding: 0 1rem 0.7rem;
+  }
+
+  .list-wrapper li .photo{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row: span 4;
+    padding-bottom:0;
+    padding-left: 0;
+
+  }
+
+  .list-wrapper li .location{
+    grid-row-start: 2;
+
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+
+  .list-wrapper li .wiki-link{
+    padding: 0 0 0 1rem;
+
+    grid-row-start: 4;
+
+    grid-column-start: 3;
+    grid-column-end: 4;
+
+    text-align: right;
+    margin-bottom: 0;
+  }
+
+}
+
+
+
 
 /* ============ Chart View Styles ============*/
 
-.chart-wrapper {
-  display: flex;
+
+/* ============ Terms and About Styles ============*/
+
+.page-wrapper{
+  max-width: 900px;
+  background-color: white;
+  margin: auto;
+  margin-top: 100px;
+  padding: 1rem;
+}
+
+.page-wrapper h2, .page-wrapper h3{
+  color: #03B2A5;
+}
+
+.page-wrapper p{
+  line-height: 24px;
+}
+
+.about-wrapper{
+  min-height: 80vh;
 }
