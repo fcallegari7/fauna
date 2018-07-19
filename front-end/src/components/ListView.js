@@ -37,13 +37,13 @@ export default class ListView extends Component {
             return (<li key={i}> <img src={item.photo.url} alt="" /></li>);
           });
           return (<li key={key}>
-              <p>default_photo: <img src={result.taxon.default_photo.square_url} alt="" /></p>
-              <p>{result.taxon.preferred_common_name}</p>
-              <p>place_guess: {result.place_guess}</p>
+              <p className="photo"><img src={result.taxon.default_photo.square_url} alt="" /></p>
+              <p className="animal-name">{result.taxon.preferred_common_name}</p>
+              <p className="location">{result.place_guess}</p>
               {/* <div>observation_photos: <ul>{photos}</ul></div> */}
-              <p>observed_on: {result.observed_on}</p>
-              <p>Count: {result.taxon.observations_count}</p>
-              <p>wikipedia_url: {result.taxon.wikipedia_url}</p>
+              <p className="latest-sighting">Latest sighting: <span className=''> {result.observed_on}</span></p>
+              <p className="sighting-count">Spotted <span className=''>{result.taxon.observations_count}</span> times this month</p>
+              <a href={result.taxon.wikipedia_url} className="wiki-link">Learn more about the animal </a>
             </li>);
         });
 
@@ -59,13 +59,13 @@ export default class ListView extends Component {
 
     render() {
         return (
-            <div className='wrapper'>
-                <div>
+            <div className='wrapper list-wrapper'>
+                {/* <div>
                   <span>Page: {this.state.observations.page}</span>
                   <span>Per page: {this.state.observations.per_page}</span>
                   <span>Total Results: {this.state.observations.total_results}</span>
-                </div>
-                <ul>
+                </div> */}
+                <ul className='card-list'>
                   {this.state.observations.results}
                 </ul>
             </div>
