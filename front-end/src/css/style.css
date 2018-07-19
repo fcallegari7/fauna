@@ -31,9 +31,6 @@ p{
   font-family: 'Raleway', sans-serif;
 }
 
-.numbers{
-  font-family: 'Open Sans', sans-serif;
-
 .block2 {
   display: none;
 }
@@ -271,10 +268,11 @@ footer span{
 
 .about-wrapper{
   min-height: 80vh;
+}
 
-  
+
 /* ============ Chart View Styles ============*/
-  
+
 .chart-wrapper {
   display: flex;
   flex-flow: column wrap;
@@ -288,7 +286,7 @@ footer span{
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   color: #696969;
-  padding: 0 1rem;
+  padding: 1rem 1rem 0 1rem;
 }
 
 .chart-components {
