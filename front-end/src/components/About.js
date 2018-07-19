@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 export default class About extends Component {
     render() {
         return (
-            <div>
+            <div className="page-wrapper about-wrapper">
                 <h2>About</h2>
                 <p>Fauna is an interactive wildlife locator. It consists of a mobile friendly web application for data visualization that shows the animals that have been spotted in Metro Vancouver and surrounding areas in a well designed, clean and interesting map, card or analytics mode view. Fauna purpose is to inform people where the animals are and when they can be spotted.
                 </p>
