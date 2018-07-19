@@ -18,24 +18,33 @@ export default class ChartView extends Component {
     this.state = {
       observations: [],
       month: '',
-      year: ''
+      year: '',
+      name: ''
     };
     this.decreaseDate = this.decreaseDate.bind(this);
     this.increaseDate = this.increaseDate.bind(this);
   }
 
   componentWillMount() {
+    this.getMonthName();
+  }
+
+  getMonthName() {
     let m = new Date();
     let month = m.getMonth() + 1;
     let year = m.getFullYear();
+    let n = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var name = n[month - 1];
 
     this.setState({
       month: month,
-      year: year
+      year: year,
+      name: name
     });
   }
 
   componentDidMount() {
+    this.updateMonthName();
     this.getChartData();
   }
 
@@ -88,6 +97,7 @@ export default class ChartView extends Component {
       month: newMonth,
       year: newYear
     });
+    this.updateMonthName();
     this.getChartData();
   }
 
@@ -112,35 +122,55 @@ export default class ChartView extends Component {
       month: newMonth,
       year: newYear
     })
+    this.updateMonthName();
     this.getChartData();
+  }
+
+  updateMonthName() {
+    let name = this.state.name;
+    let month = this.state.month;
+    let n = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let newName = n[month - 1];
+
+    console.log(`stateName: ${this.state.name}`);
+    console.log(`newName: ${newName}`);
+
   }
 
   render() {
     return (
       <div className='wrapper chart-wrapper'>
-        <label>
-          Search Location
-          <SearchAutocompleteLocation
-            value={this.state.searchBy}
-            onChangeValue={this.refineLocation}
-            items={this.state.searchAutocomplete}
-            requestTimer={this.requestTimer}
-          />
-        </label>
+        <div className='chart-search'>
+          {/* <label>
+            Location
+            <SearchAutocompleteLocation
+              value={this.state.searchBy}
+              onChangeValue={this.refineLocation}
+              items={this.state.searchAutocomplete}
+              requestTimer={this.requestTimer}
+            />
+          </label> */}
+          <div className='chart-navigation'>
+            <button onClick={this.decreaseDate}>
+              &lt;
+            </button>
+            <h2 className='month-title'>{this.state.name} {this.state.year}</h2>
+            <button onClick={this.increaseDate}>
+              &gt;
+            </button>
+          </div>
 
-        <button onClick={this.decreaseDate}>
-          BACK
-        </button>
-
-        <button onClick={this.increaseDate}>
-          FWD
-        </button>
-
-        <div className='top'>
-          <Top value={this.state.observations.slice(0, 1)} />
         </div>
-        <Bars value={this.state.observations.slice(0,1)} monthValue={this.state.month} yearValue={this.state.year} />
-        <PieChart value={this.state.observations} />
+
+        <div className='chart-components'>
+          <div className='top'>
+            <Top value={this.state.observations.slice(0, 1)} />
+          </div>
+          <div className='charts'>
+            <Bars value={this.state.observations.slice(0,1)} monthValue={this.state.month} yearValue={this.state.year} />
+            <PieChart value={this.state.observations} />
+          </div>
+        </div>
       </div>
     );
   }
