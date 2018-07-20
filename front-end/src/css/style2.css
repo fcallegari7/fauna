@@ -12,24 +12,6 @@
   top: 14px;
   left: 32px;
 }
-.search form {
-  position: absolute;
-  top: 0;
-  height: 100%;
-}
-.search form label div {
-  display: block;
-  height: 100%;
-}
-.search button {
-  position: absolute;
-  right: 0;
-  background: none;
-  border: 0;
-  color: #03B2A5;
-  height: 100%;
-  top: 0;
-}
 .search .searchIcon {
   background-color: #FFF;
   padding: 0.9em;
@@ -42,7 +24,7 @@
 .search .searchIcon::before {
   content: '';
   display: inline-block;
-  background: url('../images/searchicon.svg') center no-repeat;
+  background: url('../images/search.svg') center no-repeat;
   background-size: contain;
   width: 100%;
   height: 100%;
@@ -50,6 +32,141 @@
 .search:hover .searchIcon {
   background-color: #E0E0E0;
 }
-.search .keywords {
-  margin: 0
+.search form {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: #FFF;
+  border-radius: 20px;
 }
+.search .keywords {
+  margin: 0;
+  position: fixed;
+  list-style: none;
+  padding: 0;
+  z-index: 5;
+  list-style: none;
+}
+.search .keywords li {
+  background: #FFF;
+  padding: 4px 8px;
+  border-radius: 10px;
+  float: left;
+  margin: 6px;
+}
+.search .keywords li.tag-animal {
+  background: #eee;
+}
+.search .keywords li.tag-place {
+  background: #ddd;
+}
+.searchFormGroup .searchFormInput {
+  height: 100%;
+  display: block;
+  width: calc(100% - 72px);
+  margin: 0 36px;
+}
+.searchFormGroup .searchFormInput input {
+  height: 100%;
+  border: 0;
+  padding: 12px 6px;
+  box-sizing: border-box;
+  font-size: 21px;
+  color: #03b2a5;
+  max-width: 100%;
+  background: transparent;
+  outline: none;
+}
+.searchFormGroup .searchFormInput input:placeholder {
+  color: #03b2a5;
+}
+.searchFormGroup button {
+  position: absolute;
+  background: none;
+  border: 0;
+  color: #03B2A5;
+  height: 100%;
+  top: 0;
+  font-size: 1.5rem;
+  padding: 0;
+  outline: none;
+  width: 36px;
+}
+.searchFormGroup .submit {
+  right: 0;
+}
+.searchFormGroup .close {
+  left: 0;
+}
+.searchFormGroup .menu {
+  background: #FFF;
+  margin: -20px -36px 0;
+  padding: 10px 36px 10px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 9;
+  position: relative;
+}
+.searchFormGroup .menu .item {
+  padding: 6px;
+  border-top: 1px solid;
+  margin: 0;
+  color: #03B2A5;
+  cursor: pointer;
+}
+ .searchFormGroup .menu .item.item-highlighted {
+   background: #fafafa;
+ }
+
+ .filter {
+   position: absolute;
+   z-index: 9;
+   top: 14px;
+   right: 32px;
+ }
+ .filter .filterIcon {
+   background-color: #FFF;
+   padding: 0.9em;
+   border-radius: 50%;
+   box-shadow: 1px 1px 1px #888;
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+ }
+ .filter .filterIcon::before {
+   content: '';
+   display: inline-block;
+   background: url('../images/filter.svg') center no-repeat;
+   background-size: contain;
+   width: 100%;
+   height: 100%;
+ }
+ .filter:hover .filterIcon {
+   background-color: #E0E0E0;
+ }
+ .help {
+   position: absolute;
+   z-index: 9;
+   bottom: 14px;
+   left: 32px;
+ }
+ .help .helpIcon {
+   background-color: #FFF;
+   padding: 0.9em;
+   border-radius: 50%;
+   box-shadow: 1px 1px 1px #888;
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+ }
+ .help .helpIcon::before {
+   content: '';
+   display: inline-block;
+   background: url('../images/help.svg') center no-repeat;
+   background-size: contain;
+   width: 100%;
+   height: 100%;
+ }
+ .help:hover .helpIcon {
+   background-color: #E0E0E0;
+ }

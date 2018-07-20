@@ -30,7 +30,7 @@ export const SearchAutocomplete = compose(
         setTimeout(function(){
           Api.get(url_taxa).then(taxon => {
             taxon.results = taxon.results.slice(0,per_page).map(item => {
-              return {id: item.id, type: 'animal', name: item.preferred_common_name};
+              return {id: item.id, type: 'animal', name: (item.preferred_common_name ? item.preferred_common_name : item.name)};
             });
             Api.get(url_places).then(places => {
               places.results = places.results.map(item => {
@@ -59,6 +59,7 @@ export const SearchAutocomplete = compose(
         {children}
       </div>
     )}
+    wrapperProps={{className: 'searchFormInput'}}
     renderItem={(item, isHighlighted) => (
       <div
         className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
@@ -70,12 +71,12 @@ export const SearchAutocomplete = compose(
     menuStyle={{
       borderRadius: '3px',
       boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-      background: 'rgba(255, 255, 255, 0.9)',
+      background: '#FFF',
       padding: '2px 0',
       fontSize: '90%',
       position: 'absolute',
       overflow: 'auto',
-      maxHeight: '50%', // TODO: don't cheat, let it flow to the bottom
+      maxHeight: '50%',
     }}
   />
 );

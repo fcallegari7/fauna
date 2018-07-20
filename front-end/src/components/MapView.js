@@ -84,36 +84,73 @@ export default class MapView extends Component {
     });
   }
 
+  toggleModal(group) {
+    this.state.searchIsOpen = false;
+    this.state.filterIsOpen = false;
+    this.state.helpIsOpen = false;
+
+    if (group==='search') {
+      this.state.searchIsOpen = true;
+    }
+    if (group==='filter') {
+      this.state.filterIsOpen = true;
+    }
+    if (group==='help') {
+      this.state.helpIsOpen = true;
+    }
+
+    this.setState({
+      searchIsOpen: this.state.searchIsOpen,
+      filterIsOpen: this.state.filterIsOpen,
+      helpIsOpen: this.state.helpIsOpen
+    });
+  }
+
   requestTimer = null;
 
   render() {
     return (
       <div className='wrapper' id='map'>
         <div className="search">
-          <div className="searchIcon" onClick={() => {
-            this.setState({searchIsOpen: !this.state.searchIsOpen});
-          }} />
+          <div className="searchIcon" onClick={() => this.toggleModal('search')} />
           {this.state.searchIsOpen && (
-            <div>
+            <div className='searchFormGroup'>
               <form action="#">
+                <button className="close" type="close" onClick={() => this.toggleModal()}> x </button>
                 <SearchAutocomplete
                   value={this.state.searchBy}
                   onChangeValue={this.getMarkers}
                   keywords={this.state.keywords}
                 />
-                <button type="submit"> > </button>
+                <button className="submit" type="submit"> > </button>
               </form>
               <ul className="keywords">
                 {this.state.keywords.map((item, index) => (
                   <li key={'tag-'+item.type+'-'+item.id} className={'tag-'+item.type}>
-                    [{item.type}] - {item.name}
+                    {item.name}
                     <a href="#" onClick={() => {
                       this.state.keywords.splice(index, 1);
                       this.setState({keywords: this.state.keywords});
-                    }}> (x)</a>
+                    }}>(x)</a>
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+        </div>
+        <div className="filter">
+          <div className="filterIcon" onClick={() => this.toggleModal('filter')} />
+          {this.state.filterIsOpen && (
+            <div className='filterGroup'>
+              <p>Filter</p>
+            </div>
+          )}
+        </div>
+        <div className="help">
+          <div className="helpIcon" onClick={() => this.toggleModal('help')} />
+          {this.state.helpIsOpen && (
+            <div className='helpGroup'>
+              <p>Help</p>
             </div>
           )}
         </div>

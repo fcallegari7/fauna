@@ -6,7 +6,7 @@ var Name = require('../images/name.svg');
 var MapViewIcon = require('../images/mapview.svg');
 var ListViewIcon = require('../images/listview.svg');
 var StatsViewIcon = require('../images/statsview.svg');
-var SearchIcon = require('../images/searchicon.svg');
+var SearchIcon = require('../images/search.svg');
 
 export default class Header extends Component {
     render() {
