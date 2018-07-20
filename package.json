@@ -1,21 +1,25 @@
 {
-  "name": "faunaspotter",
+  "name": "fauna",
   "version": "1.0.0",
-  "description": "app for uploading wildlife records",
+  "engines": {
+    "npm": "5.6.0",
+    "node": "9.5.0"
+  },
+  "description": "interactive wildlife locator",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fcallegari7/faunaspotter.git"
+    "url": "git+https://github.com/fcallegari7/fauna.git"
   },
   "author": "team3",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fcallegari7/faunaspotter/issues"
+    "url": "https://github.com/fcallegari7/fauna/issues"
   },
-  "homepage": "https://github.com/fcallegari7/faunaspotter#readme",
+  "homepage": "https://github.com/fcallegari7/fauna#readme",
   "dependencies": {
     "chart.js": "^2.7.2",
     "d3": "^5.5.0",
