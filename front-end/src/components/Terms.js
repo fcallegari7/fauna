@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 export default class Terms extends Component {
     render() {
         return (
-            <div>
-                <h2>Terms and Conditions</h2>
+            <div className="page-wrapper">
+                <h2 className="PageTitle">Terms and Conditions</h2>
                 <p>Last updated: (June 1, 2018)</p>
 
                 <p>Please read these Terms and Conditions (“Terms”, “Terms and Conditions”) carefully before using the “Fauna” website and the “Fauna” mobile application operated by teamthree (“us”, “we”, or “our”).
