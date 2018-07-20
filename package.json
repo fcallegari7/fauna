@@ -20,7 +20,8 @@
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "react-svg": "^4.1.1"
+    "react-svg": "^4.1.1",
+    "serve-favicon": "^2.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -28,5 +29,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3000"
 }
