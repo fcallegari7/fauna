@@ -18,10 +18,10 @@ export default class Top extends Component {
       return;
     }
 
-    const photo = this.props.value[0].photo
-    const name = this.props.value[0].common_name
-    const count = this.props.value[0].count
-    const wikipedia = this.props.value[0].wiki
+    const photo = this.props.value.photo
+    const name = this.props.value.common_name
+    const count = this.props.value.count
+    const wikipedia = this.props.value.wiki
 
     this.setState({
       photo: photo,
@@ -32,7 +32,7 @@ export default class Top extends Component {
   }
 
   render() {
-    if (Object.keys(this.state.photo).length > 0) {
+    if (Object.keys(this.state.name).length > 0) {
       return (
         <div>
           <h2 className="top-title">Most Sighted</h2>
@@ -45,6 +45,7 @@ export default class Top extends Component {
         </div>
       )
     } else {
+      // Need to add a no results option
       return (
         <div>Loading...</div>
       );

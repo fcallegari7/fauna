@@ -31,9 +31,6 @@ p{
   font-family: 'Raleway', sans-serif;
 }
 
-.numbers{
-  font-family: 'Open Sans', sans-serif;
-
 .block2 {
   display: none;
 }
@@ -263,6 +260,7 @@ footer span{
 
 .page-wrapper h2, .page-wrapper h3{
   color: #03B2A5;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .page-wrapper p{
@@ -271,10 +269,11 @@ footer span{
 
 .about-wrapper{
   min-height: 80vh;
+}
 
-  
+
 /* ============ Chart View Styles ============*/
-  
+
 .chart-wrapper {
   display: flex;
   flex-flow: column wrap;
@@ -288,7 +287,7 @@ footer span{
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   color: #696969;
-  padding: 0 1rem;
+  padding: 1rem 1rem 0 1rem;
 }
 
 .chart-components {
@@ -347,10 +346,9 @@ footer span{
 }
 
 .top-title {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Open sans', sans-serif;
   font-size: 1.8rem;
   color: #03B2A5;
-  text-shadow: .5px .5px rgba(0,0,0,.5);
 }
 
 .top-img {

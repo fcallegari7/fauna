@@ -43,7 +43,7 @@ export default class ListView extends Component {
               {/* <div>observation_photos: <ul>{photos}</ul></div> */}
               <p className="latest-sighting">Latest sighting: <span className=''> {result.observed_on}</span></p>
               <p className="sighting-count">Spotted <span className=''>{result.taxon.observations_count}</span> times this month</p>
-              <a href={result.taxon.wikipedia_url} className="wiki-link">Learn more about the animal </a>
+              <a href={result.taxon.wikipedia_url} target='_blank' className="wiki-link">Learn more about the animal </a>
             </li>);
         });
 
