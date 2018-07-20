@@ -34,7 +34,18 @@ export const SearchAutocomplete = compose(
             });
             Api.get(url_places).then(places => {
               places.results = places.results.map(item => {
-                return {id: item.id, type: 'place', name: item.display_name};
+                let position = {
+                  latitude: null,
+                  longitude: null
+                };
+                if (item.location) {
+                  let location = item.location.split(',');
+                  position = {
+                    latitude: parseFloat(location[0]),
+                    longitude: parseFloat(location[1])
+                  }
+                }
+                return {id: item.id, type: 'place', name: item.display_name, position: position};
               });
               const results = taxon.results.concat(places.results);
               setItems(results);
@@ -55,7 +66,7 @@ export const SearchAutocomplete = compose(
       placeholder: "Search"
     }}
     renderMenu={children => (
-      <div className="menu">
+      <div className={children.length ? "menu" : ''}>
         {children}
       </div>
     )}
@@ -82,11 +93,7 @@ export const SearchAutocomplete = compose(
 );
 /*
 
-- create a list of tags
-- separete location and Animal
 - when click on animal search using the boudaries of the visible map
-- when click on city center the map on the city
-- allow to remove elmento form the ListView
 - Do the css for the map
 - create filters functionality
 

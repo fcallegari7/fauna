@@ -4,6 +4,10 @@ import React, { Component } from "react";
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
 
+var FilterIcon = require('../images/filter.svg');
+var HelpIcon = require('../images/help.svg');
+var SearchIcon = require('../images/search.svg');
+
 var ApiService = require("../services/Api").default;
 var Api = new ApiService();
 
@@ -12,6 +16,7 @@ export default class MapView extends Component {
     super(props);
 
     this.getMarkers = this.getMarkers.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
   componentWillMount() {
     this.setState({ markers: [] });
@@ -45,10 +50,15 @@ export default class MapView extends Component {
       }
     }
     keywords.push(item);
+    if (item.position && item.position.latitude !== null) {
+      this.state.position = item.position;
+    }
     this.setState({
       searchBy: item.name,
-      keywords: keywords
+      keywords: keywords,
+      position: this.state.position
     });
+    console.log(3, this.state.position)
     // &swlng=-123.19107055664062&swlat=49.29386874004779&nelng=-123.05356979370117&nelat=49.3554050055574
     const action = "observations";
     const query = encodeURI(item.name);
@@ -112,7 +122,11 @@ export default class MapView extends Component {
     return (
       <div className='wrapper' id='map'>
         <div className="search">
-          <div className="searchIcon" onClick={() => this.toggleModal('search')} />
+          {!this.state.searchIsOpen && (
+            <div className="button searchIcon" onClick={() => this.toggleModal('search')}>
+              <img className="button-icon" src={SearchIcon} alt="Search" />
+            </div>
+          )}
           {this.state.searchIsOpen && (
             <div className='searchFormGroup'>
               <form action="#">
@@ -124,30 +138,43 @@ export default class MapView extends Component {
                 />
                 <button className="submit" type="submit"> > </button>
               </form>
-              <ul className="keywords">
-                {this.state.keywords.map((item, index) => (
-                  <li key={'tag-'+item.type+'-'+item.id} className={'tag-'+item.type}>
-                    {item.name}
-                    <a href="#" onClick={() => {
-                      this.state.keywords.splice(index, 1);
-                      this.setState({keywords: this.state.keywords});
-                    }}>(x)</a>
-                  </li>
-                ))}
-              </ul>
             </div>
+          )}
+          {this.state.keywords.length>0 && (
+            <ul className="keywords">
+              {this.state.keywords.map((item, index) => (
+                <li key={'tag-'+item.type+'-'+item.id} className={'tag-'+item.type}>
+                  {item.name}
+                  <a href="#" onClick={() => {
+                    this.state.keywords.splice(index, 1);
+                    this.setState({keywords: this.state.keywords});
+                  }}>(x)</a>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
         <div className="filter">
-          <div className="filterIcon" onClick={() => this.toggleModal('filter')} />
+          <label className="menu-open-button" htmlFor="menu-open">
+            <div className="button filterIcon" onClick={() => this.toggleModal('filter')}>
+              <img className="button-icon" src={FilterIcon} alt="Filter" />
+            </div>
+          </label>
+
           {this.state.filterIsOpen && (
             <div className='filterGroup'>
-              <p>Filter</p>
+              <input type="checkbox" href="#" className="menu-open" name="menu-open" id="menu-open" />
+              <a href="#" className="menu-item blue"> <i className="fa fa-anchor"></i> </a>
+              <a href="#" className="menu-item green"> <i className="fa fa-coffee"></i> </a>
+              <a href="#" className="menu-item red"> <i className="fa fa-heart"></i> </a>
             </div>
           )}
         </div>
+
         <div className="help">
-          <div className="helpIcon" onClick={() => this.toggleModal('help')} />
+          <div className="button helpIcon" onClick={() => this.toggleModal('help')}>
+            <img className="button-icon" src={HelpIcon} alt="Help" />
+          </div>
           {this.state.helpIsOpen && (
             <div className='helpGroup'>
               <p>Help</p>

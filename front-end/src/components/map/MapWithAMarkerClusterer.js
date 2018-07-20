@@ -11,7 +11,7 @@ export const MapWithAMarkerClusterer = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBh8kD3nK9pVOAeIHPMqXzAbaDAkunTHFM&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
+    containerElement: <div style={{ height: `100%` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   withHandlers({
@@ -33,8 +33,8 @@ export const MapWithAMarkerClusterer = compose(
   withGoogleMap
 )(props =>
   <GoogleMap
-    defaultZoom={13}
-    defaultCenter={{ lat: props.center.latitude, lng: props.center.longitude }}
+    defaultZoom={6}
+    center={{ lat: props.center.latitude, lng: props.center.longitude }}
     defaultOptions={{
       styles: mapStyles,
       disableDefaultUI: false,

@@ -11,7 +11,7 @@ import Footer from './components/Footer';
     render() {
       return (
       <Router>
-        <div>
+        <div id="main">
           <Header />
           <Main />
           <Footer />
