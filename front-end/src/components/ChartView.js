@@ -17,16 +17,22 @@ export default class ChartView extends Component {
     super();
     this.state = {
       observations: [],
+      top_observation: '',
       month: '',
       year: '',
       name: ''
     };
     this.decreaseDate = this.decreaseDate.bind(this);
     this.increaseDate = this.increaseDate.bind(this);
+    this.getMonthName = this.getMonthName.bind(this);
   }
 
   componentWillMount() {
     this.getMonthName();
+  }
+
+  componentDidMount() {
+    this.getChartData();
   }
 
   getMonthName() {
@@ -43,12 +49,8 @@ export default class ChartView extends Component {
     });
   }
 
-  componentDidMount() {
-    this.updateMonthName();
-    this.getChartData();
-  }
-
   getChartData() {
+    console.log(this.state.month)
     const action = "observations/species_counts";
     const query = "";
     const per_page = "5";
@@ -70,10 +72,8 @@ export default class ChartView extends Component {
 
       this.setState({
         observations: data.results,
+        top_observation: data.results.slice(0, 1).shift()
       });
-
-      console.log(`count: ${this.state.observations[0].count} + month: ${this.state.month}`)
-
     });
   }
 
@@ -126,16 +126,16 @@ export default class ChartView extends Component {
     this.getChartData();
   }
 
-  updateMonthName() {
-    let name = this.state.name;
-    let month = this.state.month;
-    let n = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let newName = n[month - 1];
+updateMonthName() {
+  let month = this.state.month;
+  let n = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var name = n[month - 1];
 
-    console.log(`stateName: ${this.state.name}`);
-    console.log(`newName: ${newName}`);
+  this.setState({
+    name: name
+  });
+}
 
-  }
 
   render() {
     return (
@@ -164,10 +164,10 @@ export default class ChartView extends Component {
 
         <div className='chart-components'>
           <div className='top'>
-            <Top value={this.state.observations.slice(0, 1)} />
+            <Top value={this.state.top_observation} />
           </div>
           <div className='charts'>
-            <Bars value={this.state.observations.slice(0,1)} monthValue={this.state.month} yearValue={this.state.year} />
+            <Bars value={this.state.top_observation} month={this.state.month} year={this.state.year} />
             <PieChart value={this.state.observations} />
           </div>
         </div>

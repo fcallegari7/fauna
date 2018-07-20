@@ -260,6 +260,7 @@ footer span{
 
 .page-wrapper h2, .page-wrapper h3{
   color: #03B2A5;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .page-wrapper p{
@@ -345,10 +346,9 @@ footer span{
 }
 
 .top-title {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Open sans', sans-serif;
   font-size: 1.8rem;
   color: #03B2A5;
-  text-shadow: .5px .5px rgba(0,0,0,.5);
 }
 
 .top-img {
