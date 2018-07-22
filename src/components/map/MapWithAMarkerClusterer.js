@@ -15,14 +15,14 @@ export const MapWithAMarkerClusterer = compose(
         return;
       }
 
-      const refs = {}
+      let refs = {}
 
       this.changeBounds = debounce(this.props.onChangeValue, 500)
 
       this.setState({
         onMapMounted: ref => {
           refs.map = ref;
-          refs.mapZoom = refs.map.getZoom();
+          refs.mapZoom = ref.getZoom();
         },
         bounds: {
           swlng: 0,

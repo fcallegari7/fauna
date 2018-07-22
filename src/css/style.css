@@ -2,8 +2,10 @@
 
 html, body {
   margin: 0;
+  padding: 0;
   background:url("../images/background-map.png") no-repeat center center fixed;
   background-size: cover;
+  font-family: "Open Sans", sans-serif;
 }
 
 #main {
@@ -670,9 +672,6 @@ footer span{
   margin: 1rem 0 0;
   color: #03B2A5;
   text-align: right;
-}
-.mapCard__photos li ~ li{
-  /* display: none; */
 }
 .mapCard__photos li img {
   width: 200px;

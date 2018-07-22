@@ -57,7 +57,6 @@ export default class MapView extends Component {
     let keywords = this.state.keywords;
     let placeIndex = -1;
     let searchBy = [];
-    let update = false;
 
     // Update keywords list, map position and prepare ids to be used on searh
     for (let index in keywords) {
@@ -81,6 +80,11 @@ export default class MapView extends Component {
     // Allows only one place per time
     if (item.type && item.type==='place' && placeIndex > -1) {
       keywords.push(item);
+    }
+    // Add animal when the list of kwywords is empty
+    if (item.type && item.type==='animal') {
+      keywords.push(item);
+      searchBy.push(item.id);
     }
 
     // Define the new position for the map
@@ -175,8 +179,6 @@ export default class MapView extends Component {
       helpIsOpen: helpIsOpen
     });
   }
-
-  requestTimer = null;
 
   render() {
     return (
