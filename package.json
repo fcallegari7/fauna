@@ -1,10 +1,15 @@
 {
-  "name": "front-end",
-  "version": "0.1.0",
+  "name": "site.fauna.www",
+  "version": "0.7.1",
+  "displayName": "Fauna",
   "private": true,
   "engines": {
-    "npm": "5.6.0",
+    "npm": "6.2.0",
     "node": "9.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fcallegari7/fauna.git"
   },
   "dependencies": {
     "@types/markerclustererplus": "^2.1.33",
@@ -13,6 +18,7 @@
     "chart.js": "^2.7.2",
     "es6-promise": "^4.2.4",
     "isomorphic-fetch": "^2.2.1",
+    "npm": "^6.2.0",
     "react": "^16.4.0",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.2",
@@ -21,6 +27,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-svg": "^4.1.1",
+    "serve": "^9.3.0",
     "serve-favicon": "^2.5.0"
   },
   "scripts": {

@@ -64,7 +64,7 @@ export default class ChartView extends Component {
           count: result.count,
           taxon_id: result.taxon.id,
           common_name: result.taxon.preferred_common_name,
-          photo: result.taxon.default_photo.square_url,
+          photo: result.taxon.default_photo.medium_url,
           wiki: result.taxon.wikipedia_url
         };
         return observation;
