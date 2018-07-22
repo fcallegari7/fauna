@@ -1,6 +1,7 @@
 import React from 'react';
-import { compose, withState, withHandlers, withProps} from "recompose";
+import { compose, withState, withStateHandlers, withHandlers, withProps} from "recompose";
 import Autocomplete from 'react-autocomplete';
+import { debounce } from 'lodash'
 
 var PlaceIcon = require('../../images/compass.svg');
 var AnimalIcon = require('../../images/fox.svg');
@@ -13,7 +14,36 @@ export const SearchAutocomplete = compose(
   withState('items', 'setItems', []),
   withState('requestTimer', 'setRequestTimer', null),
   withProps({
-    requestTimer: null,
+    getData: debounce((searchBy, setItems) => {
+      const query = encodeURI(searchBy.toLowerCase());
+      const order_by = 'created_at';
+      const per_page = '5';
+      const url_places = `places/autocomplete?q=${query}&order_by=${order_by}&per_page=${per_page}`;
+      const url_taxa = `taxa/autocomplete?q=${query}&is_active=true&order_by=${order_by}&per_page=${per_page}`;
+      Api.get(url_taxa).then(taxon => {
+        taxon.results = taxon.results.slice(0,per_page).map(item => {
+          return {id: item.id, type: 'animal', name: (item.preferred_common_name ? item.preferred_common_name : item.name)};
+        });
+        Api.get(url_places).then(places => {
+          places.results = places.results.map(item => {
+            let position = {
+              latitude: null,
+              longitude: null
+            };
+            if (item.location) {
+              let location = item.location.split(',');
+              position = {
+                latitude: parseFloat(location[0]),
+                longitude: parseFloat(location[1])
+              }
+            }
+            return {id: item.id, type: 'place', name: item.display_name, position: position};
+          });
+          const results = taxon.results.concat(places.results);
+          setItems(results);
+        });
+      });
+    }, 500)
   }),
   withHandlers({
     onSelect: ({setValue, setItems, onChangeValue}) => (searchBy, item) => {
@@ -21,43 +51,11 @@ export const SearchAutocomplete = compose(
       setItems([]);
       onChangeValue(item);
     },
-    onChange: ({setValue, setItems, requestTimer, setRequestTimer}) => (event, searchBy) => {
+    onChange: ({setValue, getData, setItems}) => (event, searchBy) => {
       setValue(searchBy);
-      clearTimeout(requestTimer);
-      const query = encodeURI(searchBy.toLowerCase());
-      const order_by = 'created_at';
-      const per_page = '5';
-      const url_places = `places/autocomplete?q=${query}&order_by=${order_by}&per_page=${per_page}`;
-      const url_taxa = `taxa/autocomplete?q=${query}&is_active=true&order_by=${order_by}&per_page=${per_page}`;
-      setRequestTimer(
-        setTimeout(function(){
-          Api.get(url_taxa).then(taxon => {
-            taxon.results = taxon.results.slice(0,per_page).map(item => {
-              return {id: item.id, type: 'animal', name: (item.preferred_common_name ? item.preferred_common_name : item.name)};
-            });
-            Api.get(url_places).then(places => {
-              places.results = places.results.map(item => {
-                let position = {
-                  latitude: null,
-                  longitude: null
-                };
-                if (item.location) {
-                  let location = item.location.split(',');
-                  position = {
-                    latitude: parseFloat(location[0]),
-                    longitude: parseFloat(location[1])
-                  }
-                }
-                return {id: item.id, type: 'place', name: item.display_name, position: position};
-              });
-              const results = taxon.results.concat(places.results);
-              setItems(results);
-            });
-          });
-        }, 300)
-      );
+      getData(searchBy, setItems);
     }
-  })
+  }),
 )(props =>
   <Autocomplete
     value={props.value}
@@ -107,10 +105,3 @@ export const SearchAutocomplete = compose(
     }}
   />
 );
-/*
-
-- when click on animal search using the boudaries of the visible map
-- Do the css for the map
-- create filters functionality
-
-*/
