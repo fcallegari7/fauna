@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
+var Spinner = require('../../images/spinner.svg');
 
 export default class PieChart extends Component {
   constructor(props){
@@ -63,7 +64,7 @@ export default class PieChart extends Component {
       );
     } else {
       return (
-        <div>Loading...</div>
+        <div><img className='spinner' src={Spinner} alt="Loading"/></div>
       );
     }
   }

@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 var ApiService = require("../../services/Api").default;
 var Api = new ApiService();
+var Spinner = require('../../images/spinner.svg');
 
 export default class Bars extends Component {
   constructor(props) {
@@ -83,7 +84,7 @@ export default class Bars extends Component {
       );
     } else {
       return (
-        <div>Loading...</div>
+        <div><img className='spinner' src={Spinner} alt="Loading"/></div>
       );
     }
   }
