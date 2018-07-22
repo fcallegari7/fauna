@@ -37,7 +37,7 @@ export default class ListView extends Component {
             return (<li key={i}> <img src={item.photo.url} alt="" /></li>);
           });
           return (<li key={key}>
-              <p className="photo"><img src={result.taxon.default_photo.square_url} alt="" /></p>
+              <p className="photo"><img src={result.taxon.default_photo.medium_url} alt="" /></p>
               <p className="animal-name">{result.taxon.preferred_common_name}</p>
               <p className="location">{result.place_guess}</p>
               {/* <div>observation_photos: <ul>{photos}</ul></div> */}

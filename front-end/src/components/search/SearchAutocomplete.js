@@ -2,6 +2,9 @@ import React from 'react';
 import { compose, withState, withHandlers, withProps} from "recompose";
 import Autocomplete from 'react-autocomplete';
 
+var PlaceIcon = require('../../images/compass.svg');
+var AnimalIcon = require('../../images/fox.svg');
+
 var ApiService = require('../../services/Api').default;
 var Api = new ApiService();
 
@@ -21,7 +24,7 @@ export const SearchAutocomplete = compose(
     onChange: ({setValue, setItems, requestTimer, setRequestTimer}) => (event, searchBy) => {
       setValue(searchBy);
       clearTimeout(requestTimer);
-      const query = encodeURI(searchBy);
+      const query = encodeURI(searchBy.toLowerCase());
       const order_by = 'created_at';
       const per_page = '5';
       const url_places = `places/autocomplete?q=${query}&order_by=${order_by}&per_page=${per_page}`;
@@ -62,6 +65,17 @@ export const SearchAutocomplete = compose(
     getItemValue={(item) => item.name}
     onSelect={props.onSelect}
     onChange={props.onChange}
+    sortItems={(a,b,c) => {
+      var nameA = a.name.toLowerCase();
+      var nameB = b.name.toLowerCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    }}
     inputProps={{
       placeholder: "Search"
     }}
@@ -76,7 +90,9 @@ export const SearchAutocomplete = compose(
         className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
         key={item.id}
       >
-        {item.name}
+        {item.type==='place' && <img className="button-icon" src={PlaceIcon} alt="" />}
+        {item.type==='animal' && <img className="button-icon" src={AnimalIcon} alt="" />}
+        <span>{item.name}</span>
       </div>
     )}
     menuStyle={{

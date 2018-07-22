@@ -1,38 +1,101 @@
 import React from 'react';
-import { compose, withProps, withHandlers, withStateHandlers } from "recompose";
-
+import { compose, lifecycle, withProps, withStateHandlers } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import { debounce } from 'lodash'
+
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 const mapStyles = require("./mapStyles");
 const pinIcon = require('../../images/pin.svg');
 const clusterIcon = require('../../images/pin.svg');
 
 export const MapWithAMarkerClusterer = compose(
+  lifecycle({
+    componentDidUpdate(prevProps) {
+      if(prevProps.center.longitude === this.props.center.longitude) {
+        return;
+      }
+
+      const refs = {}
+
+      this.changeBounds = debounce(this.props.onChangeValue, 500)
+
+      this.setState({
+        onMapMounted: ref => {
+          refs.map = ref;
+          refs.mapZoom = refs.map.getZoom();
+        },
+        bounds: {
+          swlng: 0,
+          swlat: 0,
+          nelng: 0,
+          nelat: 0,
+        },
+        onBoundsChanged: debounce(() => {
+          const mapCenter = refs.map.getCenter();
+          const mapCenterLat = mapCenter.lat();
+          const mapCenterLng = mapCenter.lng();
+          const mapZoom = refs.map.getZoom();
+          const mapBounds = refs.map.getBounds();
+          const sw = mapBounds.getSouthWest();
+          const ne = mapBounds.getNorthEast();
+          const boundsObj = {
+            bounds: {
+              swlng: sw.lng(),
+              swlat: sw.lat(),
+              nelng: ne.lng(),
+              nelat: ne.lat(),
+            }
+          };
+
+          let center = this.props.center;
+          if (center.latitude === mapCenterLat && center.longitude === mapCenterLng) {
+            // If zooming out redo the search
+            if (mapZoom < refs.mapZoom) {
+              refs.mapZoom = mapZoom;
+              this.setState({bounds: boundsObj}, () => {
+                this.changeBounds(boundsObj)
+              });
+            }
+            // if (!this.props.bound || (this.props.bound && boundsObj.bounds.swlng === this.props.bounds.swlng && boundsObj.bounds.swlat === this.props.bounds.swlat)) {
+            //   this.setState({bounds: boundsObj}, () => {
+            //     this.changeBounds(boundsObj)
+            //   });
+            // }
+          }
+          else {
+            center.latitude = mapCenterLat;
+            center.longitude = mapCenterLng;
+
+            this.setState({center: center}, () => {
+              this.changeBounds(boundsObj)
+            });
+          }
+        }, 1000)
+      });
+    }
+  }),
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBh8kD3nK9pVOAeIHPMqXzAbaDAkunTHFM&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `100%` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
-  withHandlers({
-    onMarkerClustererClick: () => (markerClusterer) => {
-      const clickedMarkers = markerClusterer.getMarkers()
-      console.log(`Current clicked markers length: ${clickedMarkers.length}`)
-      console.log(clickedMarkers)
-    },
-  }),
-  withStateHandlers(() => ({
+  withStateHandlers(({onPinOpen}) => ({
     isOpen: false,
+    onPinOpen: onPinOpen
   }),
   {
-    onToggleOpen: ({ isOpen }) => (key) => ({
-      isOpen: (key) ? key : false
-    })
+    onToggleOpen: ({ isOpen, onPinOpen }) => (key) => {
+      onPinOpen();
+      return { isOpen: (key) ? key : false };
+    }
   }),
   withScriptjs,
   withGoogleMap
 )(props =>
   <GoogleMap
+    ref={props.onMapMounted}
+    onBoundsChanged={props.onBoundsChanged}
     defaultZoom={6}
     center={{ lat: props.center.latitude, lng: props.center.longitude }}
     defaultOptions={{
@@ -67,19 +130,22 @@ export const MapWithAMarkerClusterer = compose(
             url: pinIcon
           }}
         >
-          { (props.isOpen===marker.key) && <InfoWindow onCloseClick={props.onToggleOpen}>
-            <div>
-              <h2>{marker.name}</h2>
-              <p>Observations Count: {marker.observations_count}</p>
-              <p>{marker.place}</p>
-              <p>{marker.wikipedia_url}</p>
-              <ul>
-                {marker.photos.slice(0,1).map((url, i) => {
-                  return (<li key={marker.key+'-'.i}> <img src={url} alt="" /></li>);
-                })}
-              </ul>
-            </div>
-          </InfoWindow>}
+          {props.isOpen===marker.key && (
+            <InfoWindow onCloseClick={props.onToggleOpen}>
+              <div className="mapCard">
+                <ul className="mapCard__photos">
+                  {marker.photos.slice(0,1).map((url, i) => {
+                    return (<li key={marker.key+'-'.i}> <img src={url} alt="" /></li>);
+                  })}
+                </ul>
+                <h2 className="animal-name">{marker.name}</h2>
+                <p className="location">{marker.place}</p>
+                <p className="latest-sighting">Sighting at: <span className=''> {marker.observed_at}</span></p>
+                <p className="sighting-count">Spotted <span className=''>{marker.observations_count}</span> times</p>
+                <a href={marker.wikipedia_url} target='_blank' className="wiki-link">Learn more about the animal </a>
+              </div>
+            </InfoWindow>
+          )}
         </Marker>
       ))}
     </MarkerClusterer>
