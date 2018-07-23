@@ -58,17 +58,12 @@ export default class ListView extends Component {
     }
 
     render() {
-        return (
-            <div className='wrapper list-wrapper'>
-                {/* <div>
-                  <span>Page: {this.state.observations.page}</span>
-                  <span>Per page: {this.state.observations.per_page}</span>
-                  <span>Total Results: {this.state.observations.total_results}</span>
-                </div> */}
-                <ul className='card-list'>
-                  {this.state.observations.results}
-                </ul>
-            </div>
-        )
+      return (
+          <div className='wrapper list-wrapper'>
+            <ul className='card-list'>
+              {this.state.observations.results}
+            </ul>
+          </div>
+      )
     }
 }
