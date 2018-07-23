@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, lifecycle, withProps, withStateHandlers } from "recompose";
+import { compose, lifecycle, withProps, withState, withStateHandlers } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import { debounce } from 'lodash'
 
@@ -10,32 +10,42 @@ const clusterIcon = require('../../images/pin.svg');
 
 export const MapWithAMarkerClusterer = compose(
   lifecycle({
+    componentDidMount() {
+      this.changeBounds = debounce(this.props.onChangeValue, 500);
+      this.refs = {};
+    },
     componentDidUpdate(prevProps) {
-      if(prevProps.center.longitude === this.props.center.longitude) {
+      if(prevProps.center.longitude === this.props.center.longitude && prevProps.center.latitude === this.props.center.latitude) {
         return;
       }
 
-      let refs = {}
-
-      this.changeBounds = debounce(this.props.onChangeValue, 500)
-
       this.setState({
+        mapZoom: 6,
         onMapMounted: ref => {
-          refs.map = ref;
-          refs.mapZoom = ref.getZoom();
-        },
-        bounds: {
-          swlng: 0,
-          swlat: 0,
-          nelng: 0,
-          nelat: 0,
+          if (ref){
+            this.refs.map = ref;
+          }
+          const mapBounds = this.refs.map.getBounds();
+          const sw = mapBounds.getSouthWest();
+          const ne = mapBounds.getNorthEast();
+          const boundsObj = {
+            bounds: {
+              swlng: sw.lng(),
+              swlat: sw.lat(),
+              nelng: ne.lng(),
+              nelat: ne.lat(),
+            }
+          };
+          this.setState({bounds: boundsObj.bounds}, () => {
+            this.changeBounds(boundsObj)
+          });
         },
         onBoundsChanged: debounce(() => {
-          const mapCenter = refs.map.getCenter();
+          const mapCenter = this.refs.map.getCenter();
           const mapCenterLat = mapCenter.lat();
           const mapCenterLng = mapCenter.lng();
-          const mapZoom = refs.map.getZoom();
-          const mapBounds = refs.map.getBounds();
+          const mapZoom = this.refs.map.getZoom();
+          const mapBounds = this.refs.map.getBounds();
           const sw = mapBounds.getSouthWest();
           const ne = mapBounds.getNorthEast();
           const boundsObj = {
@@ -50,22 +60,21 @@ export const MapWithAMarkerClusterer = compose(
           let center = this.props.center;
           if (center.latitude === mapCenterLat && center.longitude === mapCenterLng) {
             // If zooming out redo the search
-            if (mapZoom < refs.mapZoom) {
-              refs.mapZoom = mapZoom;
-              this.setState({bounds: boundsObj}, () => {
+            if (mapZoom < this.state.mapZoom) {
+              this.setState({bounds: boundsObj.bounds, mapZoom: mapZoom}, () => {
                 this.changeBounds(boundsObj)
               });
             }
-            // if (!this.props.bound || (this.props.bound && boundsObj.bounds.swlng === this.props.bounds.swlng && boundsObj.bounds.swlat === this.props.bounds.swlat)) {
-            //   this.setState({bounds: boundsObj}, () => {
-            //     this.changeBounds(boundsObj)
-            //   });
-            // }
+            else {
+              this.setState({mapZoom: mapZoom});
+            }
           }
           else {
-            center.latitude = mapCenterLat;
-            center.longitude = mapCenterLng;
-
+            console.log("set center", center.latitude, mapCenterLat, prevProps.center.latitude, mapCenterLat !== prevProps.center.latitude)
+            if (mapCenterLat !== prevProps.center.latitude){
+              center.latitude = mapCenterLat;
+              center.longitude = mapCenterLng;
+            }
             this.setState({center: center}, () => {
               this.changeBounds(boundsObj)
             });
@@ -74,20 +83,28 @@ export const MapWithAMarkerClusterer = compose(
       });
     }
   }),
+  withState('mapZoom', 'setMapZoom', 6),
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBh8kD3nK9pVOAeIHPMqXzAbaDAkunTHFM&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `100%` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
-  withStateHandlers(({onPinOpen}) => ({
+  withStateHandlers(({onPinOpen, onPinClose}) => ({
     isOpen: false,
-    onPinOpen: onPinOpen
+    onPinOpen: onPinOpen,
+    onPinClose: onPinClose,
   }),
   {
-    onToggleOpen: ({ isOpen, onPinOpen }) => (key) => {
-      onPinOpen();
-      return { isOpen: (key) ? key : false };
+    onToggleOpen: ({ isOpen, onPinOpen, onPinClose }) => (key) => {
+      if (key) {
+        onPinOpen();
+        return { isOpen: key};
+      }
+      else {
+        onPinClose()
+        return { isOpen: false};
+      }
     }
   }),
   withScriptjs,
@@ -96,7 +113,7 @@ export const MapWithAMarkerClusterer = compose(
   <GoogleMap
     ref={props.onMapMounted}
     onBoundsChanged={props.onBoundsChanged}
-    defaultZoom={6}
+    defaultZoom={props.mapZoom}
     center={{ lat: props.center.latitude, lng: props.center.longitude }}
     defaultOptions={{
       styles: mapStyles,
@@ -113,6 +130,7 @@ export const MapWithAMarkerClusterer = compose(
       averageCenter
       enableRetinaIcons
       gridSize={60}
+      minimumClusterSize={5}
       defaultClusterClass="cluster"
       styles={[{
         url: clusterIcon,

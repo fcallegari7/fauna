@@ -22,6 +22,7 @@ export default class MapView extends Component {
 
     this.getMarkers = this.getMarkers.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.updateMarkers = true;
   }
   componentWillMount() {
     this.setState({
@@ -53,7 +54,11 @@ export default class MapView extends Component {
     }
   }
 
-  getMarkers(item) {
+  getMarkers(item={}) {
+    if (this.updateMarkers===false){
+      return;
+    }
+
     let keywords = this.state.keywords;
     let placeIndex = -1;
     let searchBy = [];
@@ -72,13 +77,13 @@ export default class MapView extends Component {
         }
       }
       // Save animal ids
-      else {
+      if (keywords[index].type==='animal'){
         searchBy.push(keywords[index].id);
       }
     }
 
     // Allows only one place per time
-    if (item.type && item.type==='place' && placeIndex > -1) {
+    if (item.type && item.type==='place' && placeIndex === -1) {
       keywords.push(item);
     }
     // Add animal when the list of kwywords is empty
@@ -91,12 +96,14 @@ export default class MapView extends Component {
     let position = this.state.position;
     if (item.position && item.position.latitude !== null) {
       position = item.position;
+      this.setState({position: position});
     }
 
     let bounds = this.state.bounds;
     // Only update when boundary outside previous search
     if (item.bounds) {
       bounds = item.bounds
+      this.setState({bounds: bounds});
     }
 
     // If waiting a response from the API do not call again
@@ -104,8 +111,9 @@ export default class MapView extends Component {
       return;
     }
 
-    // Only search on API if has any keyowrd defined
-    if (keywords.length === 0) {
+    // Only search on API if has any animal defined
+    if (searchBy.length === 0) {
+      this.setState({ markers: [], loading: false });
       return;
     }
 
@@ -113,14 +121,12 @@ export default class MapView extends Component {
     this.setState({
       searchBy: item.name,
       keywords: keywords,
-      position: position,
-      bounds: bounds,
       loading: true,
     });
 
     // Get and update map view data
     const action = "observations";
-    const id = encodeURI(searchBy.join(','));
+    const taxon_id = encodeURI(searchBy.join(','));
     const search_on = "name";
     const order = "desc";
     const order_by = "created_at";
@@ -130,7 +136,7 @@ export default class MapView extends Component {
     const swlat = bounds.swlat;
     const nelng = bounds.nelng;
     const nelat = bounds.nelat;
-    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&id=${id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}`;
+    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         let photos = [];
@@ -208,6 +214,7 @@ export default class MapView extends Component {
                   <button onClick={() => {
                     this.state.keywords.splice(index, 1);
                     this.setState({keywords: this.state.keywords});
+                    this.getMarkers();
                   }}>(x)</button>
                 </li>
               ))}
@@ -253,8 +260,15 @@ export default class MapView extends Component {
         <MapWithAMarkerClusterer
           markers={this.state.markers}
           center={this.state.position}
-          onPinOpen={() => this.toggleModal()}
+          onPinOpen={() => {
+            this.updateMarkers = false;
+            this.toggleModal();
+          }}
+          onPinClose={() => {
+            this.updateMarkers = true;
+          }}
           onChangeValue={this.getMarkers}
+          bounds={this.state.bounds}
         />
       </div>
     );

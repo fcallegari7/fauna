@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, withState, withStateHandlers, withHandlers, withProps} from "recompose";
+import { compose, withState, withHandlers, withProps} from "recompose";
 import Autocomplete from 'react-autocomplete';
 import { debounce } from 'lodash'
 
@@ -12,9 +12,13 @@ var Api = new ApiService();
 export const SearchAutocomplete = compose(
   withState('value', 'setValue', ''),
   withState('items', 'setItems', []),
-  withState('requestTimer', 'setRequestTimer', null),
   withProps({
     getData: debounce((searchBy, setItems) => {
+      if (searchBy.length < 3) {
+        setItems([]);
+        return;
+      }
+      
       const query = encodeURI(searchBy.toLowerCase());
       const order_by = 'created_at';
       const per_page = '5';
