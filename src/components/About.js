@@ -7,10 +7,13 @@ export default class About extends Component {
         return (
             <div className="page-wrapper about-wrapper">
                 <h2>About</h2>
-                <p>Fauna is an interactive wildlife locator. It consists of a mobile friendly web application for data visualization that shows the animals that have been spotted in Metro Vancouver and surrounding areas in a well designed, clean and interesting map, card or analytics mode view. Fauna purpose is to inform people where the animals are and when they can be spotted.
+                <p>You might have heard that Canada is the country of bears. But, they are not the only neighbours we have in Vancouver. Also raccoons, cougars, beavers and coyotes are frequently spotted by people living in the Lower Mainland. Almost every week we have a newspaper reporting a wildlife sighting in Metro Vancouver. Furthermore, Stanley Park Ecology Society reported that more than 1000 coyotes are spotted every year in Vancouver.</p>
+
+                <p>Some people enjoy seeing the wildlife when going outdoor. On the other hand, many other people want to avoid encoutering the same wildlife. Love it or hate it, they have the same problem: They don’t know where the animals are.
                 </p>
 
-                <p>Every year officials report over 1000 sightings of wild coyotes in and around Metro Vancouver area. And coyotes are not the only animals roaming around. Black bears and cougars are frequently featured in the news or Vancouverites’ social media posts. We provide an up-to-date information about animals’ sightings to people who want to either see a wild animal or to avoid it.
+                <p>
+                  That is why we created Fauna, the interactive wildlife locator. Fauna is a web application. But as 60% of internet access comes from smartphones, Fauna is mobile friendly. It takes crowd-sourced, verified information and plots it on top of an interactive map. The interface of the service is quite intuitive because we are using Google Maps API, the most used map in the World. And thanks to our in depth filters, it is very easy to find information relevant to you. Fauna shows you exactly which animal, where and when it was sighted.
                 </p>
             </div>
         )

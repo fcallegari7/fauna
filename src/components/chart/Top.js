@@ -1,6 +1,7 @@
 // Top.js
 
 import React, { Component } from "react";
+var Spinner = require('../../images/spinner.svg');
 
 export default class Top extends Component {
   constructor(props){
@@ -47,7 +48,7 @@ export default class Top extends Component {
     } else {
       // Need to add a no results option
       return (
-        <div>Loading...</div>
+        <div><img className='spinner' src={Spinner} alt="Loading"/></div>
       );
     }
   }
