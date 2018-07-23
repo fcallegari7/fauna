@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Close</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="-13.8730138%" x2="74.1682485%" y2="94.8213385%" id="linearGradient-1">
+            <stop stop-color="#00F260" offset="0%"></stop>
+            <stop stop-color="#0575E6" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/Close">
+            <g>
+                <rect id="Rectangle-2-Copy" x="0" y="0" width="40" height="40"></rect>
+                <path d="M19.8903915,17.4818187 L34.5449962,2.82721399 C35.12883,2.24338017 36.0754117,2.24338017 36.6592455,2.82721399 C37.2430793,3.41104781 37.2430793,4.35762945 36.6592455,4.94146327 L22.0046408,19.596068 L36.6592455,34.2506728 C37.2430793,34.8345066 37.2430793,35.7810882 36.6592455,36.364922 C36.0754117,36.9487559 35.12883,36.9487559 34.5449962,36.364922 L19.8903915,21.7103173 L5.23578673,36.364922 C4.65195291,36.9487559 3.70537126,36.9487559 3.12153744,36.364922 C2.53770363,35.7810882 2.53770363,34.8345066 3.12153744,34.2506728 L17.7761422,19.596068 L3.12153744,4.94146327 C2.53770363,4.35762945 2.53770363,3.41104781 3.12153744,2.82721399 C3.70537126,2.24338017 4.65195291,2.24338017 5.23578673,2.82721399 L19.8903915,17.4818187 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
