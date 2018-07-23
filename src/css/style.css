@@ -307,6 +307,12 @@ footer span{
   border-radius: 20px;
   padding: .8rem;
   background: white;
+  display: flex;
+  justify-content: center;
+}
+
+.spinner {
+  align-self: center;
 }
 
 .chart-navigation {
