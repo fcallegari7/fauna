@@ -1,27 +1,42 @@
 {
-  "name": "faunaspotter",
-  "version": "1.0.0",
-  "description": "app for uploading wildlife records",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "site.fauna.www",
+  "version": "0.7.1",
+  "displayName": "Fauna",
+  "private": true,
+  "engines": {
+    "npm": "6.2.0",
+    "node": "9.5.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fcallegari7/faunaspotter.git"
+    "url": "https://github.com/fcallegari7/fauna.git"
   },
-  "author": "team3",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fcallegari7/faunaspotter/issues"
-  },
-  "homepage": "https://github.com/fcallegari7/faunaspotter#readme",
   "dependencies": {
+    "@types/markerclustererplus": "^2.1.33",
+    "@types/react": "^16.4.4",
+    "ajv": "^6.5.1",
+    "axios": "^0.18.0",
+    "cachios": "^1.1.0",
     "chart.js": "^2.7.2",
-    "d3": "^5.5.0",
-    "express": "^4.16.3",
-    "npm": "^6.1.0",
-    "object.values": "^1.0.4",
-    "react-chartjs-2": "^2.7.2"
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
+    "npm": "^6.2.0",
+    "react": "^16.4.0",
+    "react-autocomplete": "^1.8.1",
+    "react-chartjs-2": "^2.7.2",
+    "react-dom": "^16.4.0",
+    "react-google-maps": "^9.4.5",
+    "react-infinite-scroller": "^1.2.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-svg": "^4.1.8",
+    "serve": "^9.3.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Go</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="-13.8730138%" x2="74.1682485%" y2="94.8213385%" id="linearGradient-1">
+            <stop stop-color="#00F260" offset="0%"></stop>
+            <stop stop-color="#0575E6" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/Go">
+            <g id="Icons/Close">
+                <rect id="Rectangle-2-Copy" x="0" y="0" width="40" height="40"></rect>
+                <g id="Group" transform="translate(2.000000, 10.000000)" fill="url(#linearGradient-1)">
+                    <path d="M17.7342024,14.9933999 L32.1599635,0.567638789 C32.9168152,-0.18921293 34.1439143,-0.18921293 34.900766,0.567638789 C35.6576177,1.32449051 35.6576177,2.5515896 34.900766,3.30844131 L19.3084413,18.900766 C18.8780973,19.33111 18.2957208,19.5167615 17.7342024,19.4577204 C17.172684,19.5167615 16.5903075,19.33111 16.1599635,18.900766 L0.567638789,3.30844131 C-0.18921293,2.5515896 -0.18921293,1.32449051 0.567638789,0.567638789 C1.32449051,-0.18921293 2.5515896,-0.18921293 3.30844131,0.567638789 L17.7342024,14.9933999 Z" id="Combined-Shape" transform="translate(17.734202, 9.734202) rotate(-90.000000) translate(-17.734202, -9.734202) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
