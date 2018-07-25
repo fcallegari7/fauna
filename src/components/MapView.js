@@ -1,5 +1,6 @@
 // MapView.js
 import React, { Component } from "react";
+import Distance from "./filters/Distance"
 
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
@@ -264,10 +265,28 @@ export default class MapView extends Component {
                   </div>
                 </div>
               )}
-              <div className='filters captive-filter'>
+              <div className='filter-dialog captive-filter'>
+                <p className='filter-title'>Captivity</p>
+                  <div className='filter-content'>
+                    <div className='captivity-option captivity-option-selected'>
+                      <p>Yes</p>
+                    </div>
 
+                    <div className='captivity-option'>
+                      <p>No</p>
+                    </div>
+                  </div>
               </div>
+
+              <div className='filter-dialog distance-filter'>
+                <p className='filter-title'>Distance</p>
+                  <div className='filter-content'>
+                      <Distance />
+                  </div>
+              </div>
+
             </div>
+
 
             <div className="help">
               <div className="button button-small helpIcon" onClick={() => this.toggleModal('help')}>

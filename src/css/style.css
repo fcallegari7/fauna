@@ -160,16 +160,6 @@ button {
   margin: 6px;
 }
 
-/* ================== Filter Styles ===================== */
-
-.filters {
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
-  box-shadow: .3px .3px .6px .6px #03B2A5;
-  background-color: white;
-}
-
 /* ================== Footer Styles ===================== */
 footer{
   width: 100%;
@@ -809,3 +799,74 @@ footer span{
     grid-template-columns: 150px 1fr;
   }
 }
+
+/* ============ Filter Styles ============*/
+
+.filter-dialog {
+  width: 260px;
+  height: 130px;
+  border-radius: 22px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
+  background-color: white;
+}
+
+.filter-title{
+  color: #03B2A5;
+  text-align: center;
+  font-size: 16pt;
+  padding: 0.5rem 0 .5rem;
+  margin: 0 1rem;
+
+  border-bottom: solid 1px #03B2A5;
+}
+
+
+
+/* ============ Captivity Filter ============*/
+
+.captive-filter{
+  display: none;
+}
+
+.captive-filter .filter-content{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.captivity-option{
+  background-color: white;
+  color: #03b2a5;
+  border: 1px solid #03b2a5;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 1rem;
+}
+
+.captivity-option-selected{
+  background-color: #03b2a5;
+  color: white;
+}
+
+.captivity-option p{
+  text-align: center;
+}
+
+/* ============ Distance Filter ============*/
+
+.distance-filter{
+  height: 180px;
+
+  display: none;
+}
+
+.distance-filter .filter-content{
+  padding: 1rem;
+}
+
+.rangeslider-horizontal{
+
+}
+
+/* ============ Date Filter ============*/
