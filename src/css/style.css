@@ -160,6 +160,38 @@ button {
   margin: 6px;
 }
 
+/* ================== List Header Styles ================ */
+
+.listHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #03B2A5;
+  margin: -1rem;
+  padding: 1rem;
+}
+
+.listHeader-search, .listHeader-filters {
+  width: 50%;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+
+.listHeader-search {
+  border-right: 2px solid #03B2A5;
+}
+
+.listHeader-filters nav ul {
+  display: flex;
+  justify-content: center;
+}
+
+.listHeader-filters nav ul li {
+  width: 50px;
+}
+
+
 /* ================== Filter Styles ===================== */
 
 .filters {
