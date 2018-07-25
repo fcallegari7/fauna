@@ -26,17 +26,17 @@ export default class Header extends Component {
                   <ul>
                     <li>
                       <Link className="button" to={'/'}>
-                        <img className='button-icon' src={MapViewIcon} alt="Search Icon"/>
+                        <img className='button-icon' src={MapViewIcon} alt="Map View"/>
                       </Link>
                     </li>
                     <li>
                       <Link className="button" to={'/list'}>
-                        <img className='button-icon' src={ListViewIcon} alt="Search Icon"/>
+                        <img className='button-icon' src={ListViewIcon} alt="List View"/>
                       </Link>
                     </li>
                     <li>
                       <Link className="button" to={'/chart'}>
-                        <img className='button-icon' src={StatsViewIcon} alt="Search Icon"/>
+                        <img className='button-icon' src={StatsViewIcon} alt="Chart View"/>
                       </Link>
                     </li>
                   </ul>
