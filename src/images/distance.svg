@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/DistanceFilter</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="-13.8730138%" x2="74.1682485%" y2="94.8213385%" id="linearGradient-1">
+            <stop stop-color="#00F260" offset="0%"></stop>
+            <stop stop-color="#0575E6" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/DistanceFilter">
+            <g id="DistanceFilter">
+                <rect id="Rectangle-2-Copy-2" x="0" y="0" width="40" height="40"></rect>
+                <g id="Distance" transform="translate(0.000000, 6.000000)">
+                    <path d="M30.4545228,7.08584635 C30.1627152,6.45098354 30,5.74449385 30,5 C30,2.23857625 32.2385763,0 35,0 C37.7614237,0 40,2.23857625 40,5 C40,7.76142375 37.7614237,10 35,10 C33.7091183,10 32.5324933,9.51080874 31.6453955,8.70769671 L9.72585335,21.3629503 C9.90349899,21.8758569 10,22.426659 10,23 C10,25.7614237 7.76142375,28 5,28 C2.23857625,28 0,25.7614237 0,23 C0,20.2385763 2.23857625,18 5,18 C6.46926346,18 7.79051105,18.6337313 8.70530946,19.6427605 L30.4545228,7.08584635 Z M14.8660254,11.5 L18.330127,9.5 C18.8084196,9.22385763 19.42001,9.38773278 19.6961524,9.8660254 C19.9722948,10.344318 19.8084196,10.9559084 19.330127,11.2320508 L15.8660254,13.2320508 C15.3877328,13.5081932 14.7761424,13.344318 14.5,12.8660254 C14.2238576,12.3877328 14.3877328,11.7761424 14.8660254,11.5 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>
+                    <circle id="Oval-3-Copy" fill="#FFFFFF" cx="35" cy="5" r="3"></circle>
+                    <circle id="Oval-3" fill="#FFFFFF" cx="5" cy="23" r="3"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
