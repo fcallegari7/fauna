@@ -137,7 +137,7 @@ button {
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
 }
 .button:active{
-  background-color: rgba(48,177,226,0.05);
+  background-color: #F4FBFD;
 }
 .button-selected, .button-selected:hover, .button-selected:active{
   background-color: #03B2A5;
@@ -282,6 +282,9 @@ footer span{
 
     text-align: right;
     margin-bottom: 0;
+
+    font-style: italic;
+    font-size: 10pt;
   }
 
 }
@@ -574,10 +577,11 @@ footer span{
   width: 80px;
   overflow: hidden;
   transition: width ease 680ms;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.15);
 }
 .search .searchIcon {
-  transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
-  transition-duration: 680ms;
+  /* transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33); */
+  /* transition-duration: 680ms; */
   overflow: hidden;
   z-index: 1;
   position: relative;
