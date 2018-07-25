@@ -1,6 +1,7 @@
 // MapView.js
 import React, { Component } from "react";
 import Distance from "./filters/Distance"
+import Date from "./filters/Date"
 
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
@@ -282,6 +283,13 @@ export default class MapView extends Component {
                 <p className='filter-title'>Distance</p>
                   <div className='filter-content'>
                       <Distance />
+                  </div>
+              </div>
+
+              <div className='filter-dialog date-filter'>
+                <p className='filter-title'>Date</p>
+                  <div className='filter-content'>
+                    <Date />
                   </div>
               </div>
 

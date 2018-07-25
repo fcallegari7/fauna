@@ -870,3 +870,42 @@ footer span{
 }
 
 /* ============ Date Filter ============*/
+.date-filter{
+  display: none;
+}
+
+.date-filter .filter-content{
+  padding: 1rem;
+
+}
+
+.date-filter-input-blocks{
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-datepicker-wrapper{
+  text-align: center;
+}
+
+.react-datepicker__input-container input{
+  width: 65%;
+  border: 1px solid #03b2a5;
+  color:#03b2a5;
+  padding: 1rem;
+  border-radius: 22px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 10pt;
+}
+
+.date-filter .react-datepicker__day--selected, .date-filter .react-datepicker__day--in-selecting-range, .date-filter .react-datepicker__day--in-range{
+  background-color: #03b2a5;
+}
+
+.date-filter .react-datepicker__day--in-range:hover{
+  background-color: #03b2a5;
+}
+
+.date-filter .react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range){
+  background-color: rgba(3,178,165,0.5);
+}
