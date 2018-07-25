@@ -7,6 +7,7 @@ const { MarkerClusterer } = require("react-google-maps/lib/components/addons/Mar
 const mapStyles = require("./mapStyles");
 const pinIcon = require('../../images/pin.svg');
 const clusterIcon = require('../../images/pin.svg');
+const defaultZoom = 12;
 
 export const MapWithAMarkerClusterer = compose(
   lifecycle({
@@ -20,7 +21,7 @@ export const MapWithAMarkerClusterer = compose(
       }
 
       this.setState({
-        mapZoom: 6,
+        mapZoom: defaultZoom,
         onMapMounted: ref => {
           if (ref){
             this.refs.map = ref;
@@ -36,7 +37,7 @@ export const MapWithAMarkerClusterer = compose(
               nelat: ne.lat(),
             }
           };
-          this.setState({bounds: boundsObj.bounds}, () => {
+          this.setState({bounds: boundsObj.bounds}, (w) => {
             this.changeBounds(boundsObj)
           });
         },
@@ -70,7 +71,6 @@ export const MapWithAMarkerClusterer = compose(
             }
           }
           else {
-            console.log("set center", center.latitude, mapCenterLat, prevProps.center.latitude, mapCenterLat !== prevProps.center.latitude)
             if (mapCenterLat !== prevProps.center.latitude){
               center.latitude = mapCenterLat;
               center.longitude = mapCenterLng;
@@ -82,8 +82,13 @@ export const MapWithAMarkerClusterer = compose(
         }, 1000)
       });
     }
+    ,
+    componentWillUnmount(){
+      this.changeBounds.cancel();
+      // this.onBoundsChanged.cancel();
+    }
   }),
-  withState('mapZoom', 'setMapZoom', 6),
+  withState('mapZoom', 'setMapZoom', defaultZoom),
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBh8kD3nK9pVOAeIHPMqXzAbaDAkunTHFM&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,

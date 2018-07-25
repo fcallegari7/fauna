@@ -9,9 +9,9 @@ var SearchIcon = require('../images/search.svg');
 var CloseIcon = require('../images/close.svg');
 var GoIcon = require('../images/go.svg');
 var FilterIcon = require('../images/filter.svg');
-var FilterIconItem1 = require('../images/filter.svg');
-var FilterIconItem2 = require('../images/filter.svg');
-var FilterIconItem3 = require('../images/filter.svg');
+var FilterIconCaptive = require('../images/captivity.svg');
+var FilterIconDate = require('../images/date.svg');
+var FilterIconDistance = require('../images/distance.svg');
 
 var ApiService = require("../services/Api").default;
 var Api = new ApiService();
@@ -22,6 +22,7 @@ export default class MapView extends Component {
 
     this.getMarkers = this.getMarkers.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.setPosition = this.setPosition.bind(this);
     this.updateMarkers = true;
   }
   componentWillMount() {
@@ -39,19 +40,24 @@ export default class MapView extends Component {
         nelat: 0
       }
     });
-  }
-
-  componentDidMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        this.setState({
-          position: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          }
-        });
+        this.setPosition(position);
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.setPosition = () => {};
+  }
+
+  setPosition(position) {
+    this.setState({
+      position: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      }
+    });
   }
 
   getMarkers(item={}) {
@@ -136,7 +142,16 @@ export default class MapView extends Component {
     const swlat = bounds.swlat;
     const nelng = bounds.nelng;
     const nelat = bounds.nelat;
-    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}`;
+    const allows_taxa = [
+      "Animalia",
+      "Amphibia",
+      "Aves",
+      "Mammalia",
+      "Mollusca",
+      "Reptilia"
+    ];
+    const iconic_taxa = encodeURI(allows_taxa.join(','));
+    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&iconic_taxa=${iconic_taxa}&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         let photos = [];
@@ -188,74 +203,78 @@ export default class MapView extends Component {
 
   render() {
     return (
-      <div className='wrapper' id='map'>
-        <div className={"search"+(this.state.searchIsOpen ? " open" : '')}>
-          <div className="button searchIcon" onClick={() => this.toggleModal('search')}>
-            <img className="button-icon" src={SearchIcon} alt="Search" />
-          </div>
-          <div className='searchFormGroup'>
-            <button className="close" type="close" onClick={() => this.toggleModal()}>
-              <img className="button-icon" src={CloseIcon} alt="Close" />
-            </button>
-            <SearchAutocomplete
-              value={this.state.searchBy}
-              onChangeValue={this.getMarkers}
-              keywords={this.state.keywords}
-            />
-            {false && <button className="submit" type="submit" onClick={() => this.toggleModal()}>
-              <img className="button-icon" src={GoIcon} alt="Go" />
-            </button>}
-          </div>
-          {this.state.keywords.length>0 && (
-            <ul className="keywords">
-              {this.state.keywords.map((item, index) => (
-                <li key={'tag-'+item.type+'-'+item.id} className={'tag-'+item.type}>
-                  {item.name}
-                  <button onClick={() => {
-                    this.state.keywords.splice(index, 1);
-                    this.setState({keywords: this.state.keywords});
-                    this.getMarkers();
-                  }}>(x)</button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className="filter">
-          <label className="filter-open-button" htmlFor="filter-open">
-            <div className="button filterIcon" onClick={() => this.toggleModal('filter')}>
-              <img className="button-icon" src={FilterIcon} alt="Filter" />
+      <div id='map'>
+        <div className='map-wrapper'>
+          <div className='wrapper'>
+            <div className={"search"+(this.state.searchIsOpen ? " open" : '')}>
+              <div className="button button-large searchIcon" onClick={() => this.toggleModal('search')}>
+                <img className="button-icon" src={SearchIcon} alt="Search" />
+              </div>
+              <div className='searchFormGroup'>
+                <button className="close button-large" type="close" onClick={() => this.toggleModal()}>
+                  <img className="button-icon" src={CloseIcon} alt="Close" />
+                </button>
+                <SearchAutocomplete
+                  value={this.state.searchBy}
+                  onChangeValue={this.getMarkers}
+                  keywords={this.state.keywords}
+                />
+                {false && <button className="submit" type="submit" onClick={() => this.toggleModal()}>
+                  <img className="button-icon" src={GoIcon} alt="Go" />
+                </button>}
+              </div>
+              {this.state.keywords.length>0 && (
+                <ul className="keywords">
+                  {this.state.keywords.map((item, index) => (
+                    <li key={'tag-'+item.type+'-'+item.id} className={'tag-'+item.type}>
+                      {item.name}
+                      <button onClick={() => {
+                        this.state.keywords.splice(index, 1);
+                        this.setState({keywords: this.state.keywords});
+                        this.getMarkers();
+                      }}>(x)</button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          </label>
+            <div className="filter">
+              <label className="filter-open-button" htmlFor="filter-open">
+                <div className="button button-large filterIcon" onClick={() => this.toggleModal('filter')}>
+                  <img className="button-icon" src={FilterIcon} alt="Filter" />
+                </div>
+              </label>
 
-          {this.state.filterIsOpen && (
-            <div className='filterGroup'>
-              <input type="checkbox" className="filter-open" name="filter-open" id="filter-open" />
-              <div className="button filter-item" onClick={() => this.toggleModal()}>
-                <img className="button-icon" src={CloseIcon} alt="" />
-              </div>
-              <div className="button filter-item" onClick={() => this.toggleModal()}>
-                <img className="button-icon" src={FilterIconItem1} alt="Filter - Item 1" />
-              </div>
-              <div className="button filter-item" onClick={() => this.toggleModal()}>
-                <img className="button-icon" src={FilterIconItem2} alt="Filter - Item 2" />
-              </div>
-              <div className="button filter-item" onClick={() => this.toggleModal()}>
-                <img className="button-icon" src={FilterIconItem3} alt="Filter - Item 3" />
-              </div>
+              {this.state.filterIsOpen && (
+                <div className='filterGroup'>
+                  <input type="checkbox" className="filter-open" name="filter-open" id="filter-open" />
+                  <div className="button button-large filter-item" onClick={() => this.toggleModal()}>
+                    <img className="button-icon" src={CloseIcon} alt="" />
+                  </div>
+                  <div className="button filter-item" onClick={() => this.toggleModal()}>
+                    <img className="button-icon" src={FilterIconCaptive} alt="Captive" />
+                  </div>
+                  <div className="button filter-item" onClick={() => this.toggleModal()}>
+                    <img className="button-icon" src={FilterIconDate} alt="Date" />
+                  </div>
+                  <div className="button filter-item" onClick={() => this.toggleModal()}>
+                    <img className="button-icon" src={FilterIconDistance} alt="Distance" />
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <div className="help">
-          <div className="button helpIcon" onClick={() => this.toggleModal('help')}>
-            <img className="button-icon" src={HelpIcon} alt="Help" />
-          </div>
-          {this.state.helpIsOpen && (
-            <div className='helpGroup'>
-              <p>Help</p>
+            <div className="help">
+              <div className="button button-small helpIcon" onClick={() => this.toggleModal('help')}>
+                <img className="button-icon" src={HelpIcon} alt="Help" />
+              </div>
+              {this.state.helpIsOpen && (
+                <div className='helpGroup'>
+                  <p>Help</p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
         <MapWithAMarkerClusterer
           markers={this.state.markers}

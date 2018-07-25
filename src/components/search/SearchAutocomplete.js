@@ -18,7 +18,7 @@ export const SearchAutocomplete = compose(
         setItems([]);
         return;
       }
-      
+
       const query = encodeURI(searchBy.toLowerCase());
       const order_by = 'created_at';
       const per_page = '5';
