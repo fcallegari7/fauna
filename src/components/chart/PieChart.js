@@ -31,7 +31,7 @@ export default class PieChart extends Component {
             backgroundColor: [
               "rgb(77,175,165)",
               "aquamarine",
-              "limegreen",
+              "lightskyblue",
               "darkturquoise",
               "rgb(3,145,200)"
             ]
