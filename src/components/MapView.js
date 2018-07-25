@@ -264,6 +264,9 @@ export default class MapView extends Component {
                   </div>
                 </div>
               )}
+              <div className='filters captive-filter'>
+
+              </div>
             </div>
 
             <div className="help">

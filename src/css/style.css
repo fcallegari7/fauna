@@ -160,6 +160,16 @@ button {
   margin: 6px;
 }
 
+/* ================== Filter Styles ===================== */
+
+.filters {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  box-shadow: .3px .3px .6px .6px #03B2A5;
+  background-color: white;
+}
+
 /* ================== Footer Styles ===================== */
 footer{
   width: 100%;
