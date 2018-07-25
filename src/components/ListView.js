@@ -47,10 +47,10 @@ export default class ListView extends Component {
           }
           // photos = photos.concat(result.observation_photos.map(item => item.photo.url))
 
-          return (<li key={key}>
+          return (<li key={result.id}>
               <p className="photo">
                 {photos.slice(0,1).map((url, i) => {
-                  return (<img key={i} src={url} alt="" />);
+                  return (<img key={'photo-'+i} src={url} alt="" />);
                 })}
               </p>
               <p className="animal-name">{result.taxon.preferred_common_name}</p>

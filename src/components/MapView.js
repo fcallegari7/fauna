@@ -163,7 +163,7 @@ export default class MapView extends Component {
         photos = photos.concat(result.photos.map(item => item.url))
 
         return {
-          key: key,
+          key: result.id,
           longitude: parseFloat(result.geojson.coordinates[0]),
           latitude: parseFloat(result.geojson.coordinates[1]),
           place: result.place_guess,
