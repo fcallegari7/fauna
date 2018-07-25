@@ -42,13 +42,15 @@ export default class MapView extends Component {
     });
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        this.setPosition(position);
+        if (this.setPosition) {
+          this.setPosition(position);
+        }
       });
     }
   }
 
   componentWillUnmount() {
-    this.setPosition = () => {};
+    this.setPosition = null;
   }
 
   setPosition(position) {
