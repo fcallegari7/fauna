@@ -160,37 +160,6 @@ button {
   margin: 6px;
 }
 
-/* ================== List Header Styles ================ */
-
-.listHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 1px solid #03B2A5;
-  margin: -1rem;
-  padding: 1rem;
-}
-
-.listHeader-search, .listHeader-filters {
-  width: 50%;
-  box-sizing: border-box;
-  border: 1px solid red;
-}
-
-.listHeader-search {
-  border-right: 2px solid #03B2A5;
-}
-
-.listHeader-filters nav ul {
-  display: flex;
-  justify-content: center;
-}
-
-.listHeader-filters nav ul li {
-  width: 50px;
-}
-
 
 /* ================== Filter Styles ===================== */
 
@@ -283,15 +252,15 @@ footer span{
 }
 
 .list-wrapper .photo img{
-  width: 200px;
+  width: 100%;
   margin: auto .4rem;
-  max-width: 100%;
+  max-width: 300px;
 }
 
 @media only screen and (min-width: 800px) {
 
   .list-wrapper li{
-    grid-template-columns: 150px 1fr 1fr;
+    grid-template-columns: 250px 1fr 1fr;
   }
 
   .list-wrapper li p{
@@ -417,7 +386,6 @@ footer span{
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   color: #696969;
-  margin-top: 1rem;
   padding: 1rem 1rem 0 1rem;
 }
 
