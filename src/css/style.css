@@ -137,7 +137,7 @@ button {
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
 }
 .button:active{
-  background-color: rgba(48,177,226,0.05);
+  background-color: #F4FBFD;
 }
 .button-selected, .button-selected:hover, .button-selected:active{
   background-color: #03B2A5;
@@ -170,6 +170,7 @@ button {
   box-shadow: .3px .3px .6px .6px #03B2A5;
   background-color: white;
 }
+
 
 /* ================== Footer Styles ===================== */
 footer{
@@ -293,6 +294,9 @@ footer span{
 
     text-align: right;
     margin-bottom: 0;
+
+    font-style: italic;
+    font-size: 10pt;
   }
 
 }
@@ -584,10 +588,11 @@ footer span{
   width: 80px;
   overflow: hidden;
   transition: width ease 680ms;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.15);
 }
 .search .searchIcon {
-  transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
-  transition-duration: 680ms;
+  /* transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33); */
+  /* transition-duration: 680ms; */
   overflow: hidden;
   z-index: 1;
   position: relative;
@@ -698,12 +703,7 @@ footer span{
   top: 0;
   right: 0;
 }
-.help {
-  position: absolute;
-  z-index: 8;
-  bottom: 0;
-  left: 0;
-}
+
 .filter-item {
   background: #FFF;
   border-radius: 100%;
@@ -804,4 +804,159 @@ footer span{
     margin-top: 0;
     grid-template-columns: 150px 1fr;
   }
+}
+
+/* ============ Filter Styles ============*/
+
+.filter-dialog {
+  width: 260px;
+  height: 130px;
+  border-radius: 22px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
+  background-color: white;
+}
+
+.filter-title{
+  color: #03B2A5;
+  text-align: center;
+  font-size: 16pt;
+  padding: 0.5rem 0 .5rem;
+  margin: 0 1rem;
+
+  border-bottom: solid 1px #03B2A5;
+}
+
+
+
+/* ============ Captivity Filter ============*/
+
+.captive-filter{
+  display: none;
+}
+
+.captive-filter .filter-content{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.captivity-option{
+  background-color: white;
+  color: #03b2a5;
+  border: 1px solid #03b2a5;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 1rem;
+}
+
+.captivity-option-selected{
+  background-color: #03b2a5;
+  color: white;
+}
+
+.captivity-option p{
+  text-align: center;
+}
+
+/* ============ Distance Filter ============*/
+
+.distance-filter{
+  height: 180px;
+
+  display: none;
+}
+
+.distance-filter .filter-content{
+  padding: 1rem;
+}
+
+.rangeslider-horizontal{
+
+}
+
+/* ============ Date Filter ============*/
+.date-filter{
+  display: none;
+}
+
+.date-filter .filter-content{
+  padding: 1rem;
+
+}
+
+.date-filter-input-blocks{
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-datepicker-wrapper{
+  text-align: center;
+}
+
+.react-datepicker__input-container input{
+  width: 65%;
+  border: 1px solid #03b2a5;
+  color:#03b2a5;
+  padding: 1rem;
+  border-radius: 22px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 10pt;
+}
+
+.date-filter .react-datepicker__day--selected, .date-filter .react-datepicker__day--in-selecting-range, .date-filter .react-datepicker__day--in-range{
+  background-color: #03b2a5;
+}
+
+.date-filter .react-datepicker__day--in-range:hover{
+  background-color: #03b2a5;
+}
+
+.date-filter .react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range){
+  background-color: rgba(3,178,165,0.5);
+}
+
+/* ============ Help Box Styles ============*/
+
+.help {
+  position: absolute;
+  z-index: 8;
+  bottom: 0;
+  left: 0;
+}
+
+.help-box{
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
+  border-radius: 22px;
+  padding: 2rem;
+}
+
+.help-box h2{
+  text-align: center;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  color:#03b2a5;
+}
+
+.help-box .row{
+  display: flex;
+}
+
+
+.help-box ul{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.help-box ul li{
+  display: flex;
+}
+
+.help-box .help-filter-image{
+  margin: 1rem;
+}
+
+.help-box p{
+  color:#03b2a5;
 }
