@@ -692,12 +692,7 @@ footer span{
   top: 0;
   right: 0;
 }
-.help {
-  position: absolute;
-  z-index: 8;
-  bottom: 0;
-  left: 0;
-}
+
 .filter-item {
   background: #FFF;
   border-radius: 100%;
@@ -908,4 +903,49 @@ footer span{
 
 .date-filter .react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range){
   background-color: rgba(3,178,165,0.5);
+}
+
+/* ============ Help Box Styles ============*/
+
+.help {
+  position: absolute;
+  z-index: 8;
+  bottom: 0;
+  left: 0;
+}
+
+.help-box{
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
+  border-radius: 22px;
+  padding: 2rem;
+}
+
+.help-box h2{
+  text-align: center;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  color:#03b2a5;
+}
+
+.help-box .row{
+  display: flex;
+}
+
+
+.help-box ul{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.help-box ul li{
+  display: flex;
+}
+
+.help-box .help-filter-image{
+  margin: 1rem;
+}
+
+.help-box p{
+  color:#03b2a5;
 }

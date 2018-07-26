@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import Distance from "./filters/Distance"
 import Date from "./filters/Date"
+import Help from "./map/Help"
 
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
@@ -301,9 +302,7 @@ export default class MapView extends Component {
                 <img className="button-icon" src={HelpIcon} alt="Help" />
               </div>
               {this.state.helpIsOpen && (
-                <div className='helpGroup'>
-                  <p>Help</p>
-                </div>
+                <Help />
               )}
             </div>
           </div>
