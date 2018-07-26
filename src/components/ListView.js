@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import ListHeader from './ListHeader'
 var ApiService = require('../services/Api').default;
 var Api = new ApiService();
 var Spinner = require('../images/spinner.svg');
@@ -80,7 +79,6 @@ export default class ListView extends Component {
     render() {
       return (
           <div className='wrapper list-wrapper'>
-            <ListHeader />
             <ul className='card-list'>
               <InfiniteScroll
                 pageStart={0}
