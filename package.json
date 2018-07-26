@@ -22,6 +22,7 @@
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.22.2",
     "npm": "^6.2.0",
+    "qwest": "^4.5.0",
     "react": "^16.4.0",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.2",
