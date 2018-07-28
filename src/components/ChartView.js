@@ -50,7 +50,6 @@ export default class ChartView extends Component {
   }
 
   getChartData() {
-    console.log(this.state.month)
     const action = "observations/species_counts";
     const query = "";
     const per_page = "5";
@@ -77,9 +76,9 @@ export default class ChartView extends Component {
     });
   }
 
-  refineLocation(location) {
-
-  }
+  // refineLocation(location) {
+  //
+  // }
 
   decreaseDate() {
     let currentMonth = this.state.month;
@@ -151,15 +150,14 @@ updateMonthName() {
             />
           </label> */}
           <div className='chart-navigation'>
-            <button onClick={this.decreaseDate}>
+            <button className='button' onClick={this.decreaseDate}>
               &lt;
             </button>
             <h2 className='month-title'>{this.state.name} {this.state.year}</h2>
-            <button onClick={this.increaseDate}>
+            <button className='button' onClick={this.increaseDate}>
               &gt;
             </button>
           </div>
-
         </div>
 
         <div className='chart-components'>

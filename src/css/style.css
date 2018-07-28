@@ -133,7 +133,7 @@ button {
   width: 32px;
 }
 .button:hover{
-  background-color: #F4F4F4;
+  background-color: rgb(219,239,237);
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
 }
 .button:active{
@@ -374,6 +374,7 @@ footer span{
 /* ============ Chart View Styles ============*/
 
 .chart-wrapper {
+  max-width: 1000px;
   display: flex;
   flex-flow: column wrap;
   font-family: 'Open Sans', sans-serif;
@@ -390,7 +391,7 @@ footer span{
 }
 
 .chart-components {
-  width: 100vw;
+  width: 100%;
 }
 
 .charts div {
@@ -403,7 +404,25 @@ footer span{
   justify-content: center;
 }
 
+.month-title {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+}
+
 .spinner {
+  align-self: center;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner-list {
+  width: 80px;
   align-self: center;
 }
 
@@ -489,7 +508,7 @@ footer span{
 .top-link {
   font-family: "Raleway",sans-serif;
   text-align: center;
-  font-size: .8rem;
+  font-size: .9rem;
   margin-bottom: 1.5rem;
 }
 
@@ -728,7 +747,7 @@ footer span{
   display: none;
 }
 .filter-item:hover {
-  background: #EEEEEE;
+  background: rgb(219,239,237);
   color: #3290B1;
 }
 .filter-item:nth-child(2),
@@ -953,8 +972,8 @@ footer span{
   display: flex;
 }
 
-.help-box .help-filter-image{
-  margin: 1rem;
+.help-box .help-filter-image, .help-image {
+  margin-right: 1rem;
 }
 
 .help-box p{
