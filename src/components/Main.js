@@ -16,7 +16,7 @@ export default class Main extends Component {
               <Route path='/chart' component={ChartView} />
               <Route path='/terms' component={Terms} />
               <Route path='/about' component={About} />
-              <Redirect to="/" />
+              <Redirect to='/' />
           </Switch>
         )
     }

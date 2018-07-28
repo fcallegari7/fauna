@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 var ApiService = require('../services/Api').default;
 var Api = new ApiService();
-var Spinner = require('../images/spinner.svg');
+var Spinner = require ('../images/spinner.svg')
 
 export default class ListView extends Component {
 
@@ -13,9 +13,10 @@ export default class ListView extends Component {
       this.state = {
         observations: {
           page: 1,
-          per_page: 30,
+          per_page: 10,
           total_results: 0,
-          results: []
+          results: [],
+          hasMore: true
         }
       }
     }
@@ -24,13 +25,13 @@ export default class ListView extends Component {
       this.getListData();
     }
 
-    getListData(page) {
+    getListData(page = 1) {
       const action = 'observations';
       const query = '';
       const search_on = "name";
       const order = 'desc';
       const order_by = 'observed_on';
-      const per_page = '30';
+      const per_page = '10';
       const allows_taxa = [
         "Animalia",
         "Amphibia",
@@ -69,7 +70,8 @@ export default class ListView extends Component {
           page: data.page,
           per_page: data.per_page,
           total_results: data.total_results,
-          results: data.results
+          results: this.state.observations.results.concat(data.results),
+          hasmore: Boolean(data.results.length)
         }
 
         this.setState({observations: result_data});
@@ -83,8 +85,8 @@ export default class ListView extends Component {
               <InfiniteScroll
                 pageStart={0}
                 loadMore={this.getListData.bind(this)}
-                hasMore={true}
-                loader={<div className="loader" key={0}>Loading ...</div>}
+                hasMore={this.state.observations.hasmore}
+                loader={<div className="loader" key={0}><img className='spinner-list' src={Spinner} alt="Loading"/></div>}
                 >
                   {this.state.observations.results}
                 </InfiniteScroll>
