@@ -256,7 +256,7 @@ export default class MapView extends Component {
                 <div className='filterGroup'>
                   <input type="checkbox" className="filter-open" name="filter-open" id="filter-open" />
                   <div className="button button-large filter-item" onClick={() => this.toggleModal()}>
-                    <img className="button-icon" src={CloseIcon} alt="" />
+                    <img className="button-icon close-filter" src={CloseIcon} alt="Close" />
                   </div>
                   <div className="button filter-item" onClick={() => this.toggleModal()}>
                     <img className="button-icon" src={FilterIconCaptive} alt="Captive" />
