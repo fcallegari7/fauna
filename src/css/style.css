@@ -414,6 +414,7 @@ footer span{
 
 .spinner {
   align-self: center;
+  width: 100px;
 }
 
 .loader {
@@ -646,12 +647,11 @@ footer span{
   float: left;
   margin: 6px;
 }
-.search .keywords li.tag-animal {
-  background: #eee;
+.search .keywords li.tag-animal, .search .keywords li.tag-place {
+  background: white;
+  color: #03B2A5;
 }
-.search .keywords li.tag-place {
-  background: #ddd;
-}
+
 .searchFormGroup .searchFormInput {
   height: 100%;
   display: block;
@@ -944,13 +944,43 @@ footer span{
   left: 0;
 }
 
-.help-box{
+.help-title {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.closeHelp {
+  display: none;
+}
+
+.help-title button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-style: 'Open sans', sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #03B2A5;
+  outline: none;
+}
+
+.help-box {
   background-color: white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
   border-radius: 22px;
   padding: 2rem;
+  display: none;
 }
-
+.help.open {
+  z-index: 10;
+}
+.help.open .help-box {
+  display: block;
+}
+.help.open .helpIcon {
+  display: none;
+}
 .help-box h2{
   text-align: center;
   margin: 0;
