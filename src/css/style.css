@@ -133,7 +133,7 @@ button {
   width: 32px;
 }
 .button:hover{
-  background-color: rgb(219,239,237);
+  background-color: #E5F7F6;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
 }
 .button:active{
@@ -169,6 +169,11 @@ button {
   border-radius: 20px;
   box-shadow: .3px .3px .6px .6px #03B2A5;
   background-color: white;
+}
+
+.close-filter {
+  width: 25px;
+  height: 25px;
 }
 
 
@@ -594,6 +599,11 @@ footer span{
   max-width: 1240px;
   margin: 0;
 }
+@media only screen and (max-width: 600px) {
+  .map-wrapper {
+    padding: 1rem 2rem;
+  }
+}
 .search {
   position: absolute;
   z-index: 9;
@@ -747,7 +757,7 @@ footer span{
   display: none;
 }
 .filter-item:hover {
-  background: rgb(219,239,237);
+  background: #E5F7F6;
   color: #3290B1;
 }
 .filter-item:nth-child(2),
@@ -928,7 +938,7 @@ footer span{
 }
 
 .date-filter .react-datepicker__day--in-range:hover{
-  background-color: #03b2a5;
+  background-color: #E5F7F6;
 }
 
 .date-filter .react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range){
@@ -954,6 +964,10 @@ footer span{
   display: none;
 }
 
+.close-help {
+  width: 16px;
+}
+
 .help-title button {
   position: absolute;
   right: 0;
@@ -974,6 +988,10 @@ footer span{
 }
 .help.open {
   z-index: 10;
+}
+.help.open button:hover {
+  color: #0575e6;
+  cursor: pointer;
 }
 .help.open .help-box {
   display: block;
@@ -1008,4 +1026,10 @@ footer span{
 
 .help-box p{
   color:#03b2a5;
+}
+
+@media only screen and (min-width: 1450px) {
+  header .wrapper, #map .wrapper {
+    margin: auto;
+  }
 }

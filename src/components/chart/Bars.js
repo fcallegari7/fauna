@@ -68,6 +68,7 @@ export default class Bars extends Component {
                 display: false,
                 position: "top"
               },
+              responsive: true,
               maintainAspectRatio: true,
               scales: {
                 yAxes: [
