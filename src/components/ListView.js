@@ -1,18 +1,22 @@
 // ListView.js
 
 import React, { Component } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 var ApiService = require('../services/Api').default;
 var Api = new ApiService();
+var Spinner = require ('../images/spinner.svg')
 
 export default class ListView extends Component {
+
     constructor() {
       super();
       this.state = {
         observations: {
           page: 1,
-          per_page: 30,
+          per_page: 10,
           total_results: 0,
-          results: []
+          results: [],
+          hasMore: true
         }
       }
     }
@@ -21,14 +25,13 @@ export default class ListView extends Component {
       this.getListData();
     }
 
-    getListData() {
+    getListData(page = 1) {
       const action = 'observations';
       const query = '';
       const search_on = "name";
       const order = 'desc';
       const order_by = 'observed_on';
-      const page = '1';
-      const per_page = '30';
+      const per_page = '10';
       const allows_taxa = [
         "Animalia",
         "Amphibia",
@@ -39,6 +42,7 @@ export default class ListView extends Component {
       ];
       const iconic_taxa = encodeURI(allows_taxa.join(','));
       const url = `${action}?geo=true&mappable=true&identified=true&photo=true&q=${query}&iconic_taxa=${iconic_taxa}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}`;
+
       Api.get(url).then(data => {
         data.results = data.results.map((result, key) => {
           let photos = [];
@@ -66,8 +70,10 @@ export default class ListView extends Component {
           page: data.page,
           per_page: data.per_page,
           total_results: data.total_results,
-          results: data.results
+          results: this.state.observations.results.concat(data.results),
+          hasmore: Boolean(data.results.length)
         }
+
         this.setState({observations: result_data});
       });
     }
@@ -76,7 +82,14 @@ export default class ListView extends Component {
       return (
           <div className='wrapper list-wrapper'>
             <ul className='card-list'>
-              {this.state.observations.results}
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={this.getListData.bind(this)}
+                hasMore={this.state.observations.hasmore}
+                loader={<div className="loader" key={0}><img className='spinner-list' src={Spinner} alt="Loading"/></div>}
+                >
+                  {this.state.observations.results}
+                </InfiniteScroll>
             </ul>
           </div>
       )

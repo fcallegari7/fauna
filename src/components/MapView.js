@@ -1,10 +1,12 @@
 // MapView.js
 import React, { Component } from "react";
+import Distance from "./filters/Distance"
+import Date from "./filters/Date"
+import Help from "./map/Help"
 
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
 
-var HelpIcon = require('../images/help.svg');
 var SearchIcon = require('../images/search.svg');
 var CloseIcon = require('../images/close.svg');
 var GoIcon = require('../images/go.svg');
@@ -30,6 +32,8 @@ export default class MapView extends Component {
       markers: [],
       loading: false,
       searchIsOpen: false,
+      filterIsOpen: false,
+      helpIsOpen: false,
       searchBy: "",
       keywords: [],
       position: { latitude: 49.2245678, longitude: -123.1106257 },
@@ -181,6 +185,7 @@ export default class MapView extends Component {
   }
 
   toggleModal(group) {
+    console.log(1, group, this.state, this)
     let searchIsOpen = false;
     let filterIsOpen = false;
     let helpIsOpen = false;
@@ -264,18 +269,37 @@ export default class MapView extends Component {
                   </div>
                 </div>
               )}
+              <div className='filter-dialog captive-filter'>
+                <p className='filter-title'>Captivity</p>
+                  <div className='filter-content'>
+                    <div className='captivity-option captivity-option-selected'>
+                      <p>Yes</p>
+                    </div>
+
+                    <div className='captivity-option'>
+                      <p>No</p>
+                    </div>
+                  </div>
+              </div>
+
+              <div className='filter-dialog distance-filter'>
+                <p className='filter-title'>Distance</p>
+                  <div className='filter-content'>
+                      <Distance />
+                  </div>
+              </div>
+
+              <div className='filter-dialog date-filter'>
+                <p className='filter-title'>Date</p>
+                  <div className='filter-content'>
+                    <Date />
+                  </div>
+              </div>
+
             </div>
 
-            <div className="help">
-              <div className="button button-small helpIcon" onClick={() => this.toggleModal('help')}>
-                <img className="button-icon" src={HelpIcon} alt="Help" />
-              </div>
-              {this.state.helpIsOpen && (
-                <div className='helpGroup'>
-                  <p>Help</p>
-                </div>
-              )}
-            </div>
+
+            <Help isOpen={this.state.helpIsOpen} toggleModal={this.toggleModal} />
           </div>
         </div>
         <MapWithAMarkerClusterer

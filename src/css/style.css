@@ -133,11 +133,11 @@ button {
   width: 32px;
 }
 .button:hover{
-  background-color: #F4F4F4;
+  background-color: rgb(219,239,237);
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
 }
 .button:active{
-  background-color: rgba(48,177,226,0.05);
+  background-color: #F4FBFD;
 }
 .button-selected, .button-selected:hover, .button-selected:active{
   background-color: #03B2A5;
@@ -159,6 +159,18 @@ button {
   width: 18px;
   margin: 6px;
 }
+
+
+/* ================== Filter Styles ===================== */
+
+.filters {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  box-shadow: .3px .3px .6px .6px #03B2A5;
+  background-color: white;
+}
+
 
 /* ================== Footer Styles ===================== */
 footer{
@@ -240,15 +252,15 @@ footer span{
 }
 
 .list-wrapper .photo img{
-  width: 200px;
+  width: 100%;
   margin: auto .4rem;
-  max-width: 100%;
+  max-width: 300px;
 }
 
 @media only screen and (min-width: 800px) {
 
   .list-wrapper li{
-    grid-template-columns: 150px 1fr 1fr;
+    grid-template-columns: 250px 1fr 1fr;
   }
 
   .list-wrapper li p{
@@ -282,6 +294,9 @@ footer span{
 
     text-align: right;
     margin-bottom: 0;
+
+    font-style: italic;
+    font-size: 10pt;
   }
 
 }
@@ -359,6 +374,7 @@ footer span{
 /* ============ Chart View Styles ============*/
 
 .chart-wrapper {
+  max-width: 1000px;
   display: flex;
   flex-flow: column wrap;
   font-family: 'Open Sans', sans-serif;
@@ -371,12 +387,11 @@ footer span{
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   color: #696969;
-  margin-top: 1rem;
   padding: 1rem 1rem 0 1rem;
 }
 
 .chart-components {
-  width: 100vw;
+  width: 100%;
 }
 
 .charts div {
@@ -389,7 +404,26 @@ footer span{
   justify-content: center;
 }
 
+.month-title {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+}
+
 .spinner {
+  align-self: center;
+  width: 100px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner-list {
+  width: 80px;
   align-self: center;
 }
 
@@ -475,7 +509,7 @@ footer span{
 .top-link {
   font-family: "Raleway",sans-serif;
   text-align: center;
-  font-size: .8rem;
+  font-size: .9rem;
   margin-bottom: 1.5rem;
 }
 
@@ -574,10 +608,11 @@ footer span{
   width: 80px;
   overflow: hidden;
   transition: width ease 680ms;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.15);
 }
 .search .searchIcon {
-  transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
-  transition-duration: 680ms;
+  /* transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33); */
+  /* transition-duration: 680ms; */
   overflow: hidden;
   z-index: 1;
   position: relative;
@@ -612,12 +647,11 @@ footer span{
   float: left;
   margin: 6px;
 }
-.search .keywords li.tag-animal {
-  background: #eee;
+.search .keywords li.tag-animal, .search .keywords li.tag-place {
+  background: white;
+  color: #03B2A5;
 }
-.search .keywords li.tag-place {
-  background: #ddd;
-}
+
 .searchFormGroup .searchFormInput {
   height: 100%;
   display: block;
@@ -688,12 +722,7 @@ footer span{
   top: 0;
   right: 0;
 }
-.help {
-  position: absolute;
-  z-index: 8;
-  bottom: 0;
-  left: 0;
-}
+
 .filter-item {
   background: #FFF;
   border-radius: 100%;
@@ -718,7 +747,7 @@ footer span{
   display: none;
 }
 .filter-item:hover {
-  background: #EEEEEE;
+  background: rgb(219,239,237);
   color: #3290B1;
 }
 .filter-item:nth-child(2),
@@ -794,4 +823,189 @@ footer span{
     margin-top: 0;
     grid-template-columns: 150px 1fr;
   }
+}
+
+/* ============ Filter Styles ============*/
+
+.filter-dialog {
+  width: 260px;
+  height: 130px;
+  border-radius: 22px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
+  background-color: white;
+}
+
+.filter-title{
+  color: #03B2A5;
+  text-align: center;
+  font-size: 16pt;
+  padding: 0.5rem 0 .5rem;
+  margin: 0 1rem;
+
+  border-bottom: solid 1px #03B2A5;
+}
+
+
+
+/* ============ Captivity Filter ============*/
+
+.captive-filter{
+  display: none;
+}
+
+.captive-filter .filter-content{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.captivity-option{
+  background-color: white;
+  color: #03b2a5;
+  border: 1px solid #03b2a5;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 1rem;
+}
+
+.captivity-option-selected{
+  background-color: #03b2a5;
+  color: white;
+}
+
+.captivity-option p{
+  text-align: center;
+}
+
+/* ============ Distance Filter ============*/
+
+.distance-filter{
+  height: 180px;
+
+  display: none;
+}
+
+.distance-filter .filter-content{
+  padding: 1rem;
+}
+
+.rangeslider-horizontal{
+
+}
+
+/* ============ Date Filter ============*/
+.date-filter{
+  display: none;
+}
+
+.date-filter .filter-content{
+  padding: 1rem;
+
+}
+
+.date-filter-input-blocks{
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-datepicker-wrapper{
+  text-align: center;
+}
+
+.react-datepicker__input-container input{
+  width: 65%;
+  border: 1px solid #03b2a5;
+  color:#03b2a5;
+  padding: 1rem;
+  border-radius: 22px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 10pt;
+}
+
+.date-filter .react-datepicker__day--selected, .date-filter .react-datepicker__day--in-selecting-range, .date-filter .react-datepicker__day--in-range{
+  background-color: #03b2a5;
+}
+
+.date-filter .react-datepicker__day--in-range:hover{
+  background-color: #03b2a5;
+}
+
+.date-filter .react-datepicker__day--in-selecting-range:not( .react-datepicker__day--in-range){
+  background-color: rgba(3,178,165,0.5);
+}
+
+/* ============ Help Box Styles ============*/
+
+.help {
+  position: absolute;
+  z-index: 8;
+  bottom: 0;
+  left: 0;
+}
+
+.help-title {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.closeHelp {
+  display: none;
+}
+
+.help-title button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-style: 'Open sans', sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #03B2A5;
+  outline: none;
+}
+
+.help-box {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
+  border-radius: 22px;
+  padding: 2rem;
+  display: none;
+}
+.help.open {
+  z-index: 10;
+}
+.help.open .help-box {
+  display: block;
+}
+.help.open .helpIcon {
+  display: none;
+}
+.help-box h2{
+  text-align: center;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  color:#03b2a5;
+}
+
+.help-box .row{
+  display: flex;
+}
+
+
+.help-box ul{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.help-box ul li{
+  display: flex;
+}
+
+.help-box .help-filter-image, .help-image {
+  margin-right: 1rem;
+}
+
+.help-box p{
+  color:#03b2a5;
 }

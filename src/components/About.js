@@ -35,7 +35,7 @@ export default class About extends Component {
                     <a href='https://www.linkedin.com/in/fabio-callegari7/' target='_blank'>
                       <img className='profile' src={Fabio} alt="Fabio Callegari"/>
                       <h4>Fabio Callegari</h4>
-                      <p>Project Manager</p>
+                      <p>Team Leader</p>
                     </a>
                   </div>
 
