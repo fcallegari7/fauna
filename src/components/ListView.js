@@ -79,8 +79,12 @@ export default class ListView extends Component {
     }
 
     render() {
-      return (
+      if (Object.keys(this.state.observations.results).length > 0) {
+        return (
           <div className='wrapper list-wrapper'>
+            <div className='list-header'>
+              <h2>Recently sighted animals</h2>
+            </div>
             <ul className='card-list'>
               <InfiniteScroll
                 pageStart={0}
@@ -92,6 +96,16 @@ export default class ListView extends Component {
                 </InfiniteScroll>
             </ul>
           </div>
-      )
+        )
+      } else {
+        return (
+          <div className='wrapper list-wrapper'>
+            <div className='list-header'>
+              <h2>Recently sighted animals</h2>
+            </div>
+            <div className="loader" key={0}><img className='spinner-list spinner-top' src={Spinner} alt="Loading"/></div>
+          </div>
+        )
+      }
     }
 }
