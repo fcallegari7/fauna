@@ -54,6 +54,7 @@ export default class PieChart extends Component {
                 text: "Top 5 Animals",
                 fontSize: 25
               },
+              responsive: true,
               legend: {
                 display: true,
                 position: "top"
