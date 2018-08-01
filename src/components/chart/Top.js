@@ -35,7 +35,7 @@ export default class Top extends Component {
   render() {
     if (Object.keys(this.state.name).length > 0) {
       return (
-        <div>
+        <div className='top-wrapper'>
           <h2 className="top-title">Most Sighted</h2>
           <img className='top-img' src={this.state.photo} alt="most sighted animal"/>
           <div className='top-info'>

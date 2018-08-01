@@ -3,11 +3,14 @@ import { compose, withState, withHandlers, withProps} from "recompose";
 import Autocomplete from 'react-autocomplete';
 import { debounce } from 'lodash'
 
-var PlaceIcon = require('../../images/compass.svg');
-var AnimalIcon = require('../../images/fox.svg');
+const PlaceIcon = require('../../images/pin.svg');
+const AnimalIcon = require('../../images/raccoon.svg');
+const ReptiliaIcon = require('../../images/reptile.svg');
+const AvesIcon = require('../../images/bird.svg');
+const MammaliaIcon = require('../../images/coyote.svg');
 
-var ApiService = require('../../services/Api').default;
-var Api = new ApiService();
+const ApiService = require('../../services/Api').default;
+const Api = new ApiService();
 
 export const SearchAutocomplete = compose(
   withState('value', 'setValue', ''),
@@ -26,7 +29,20 @@ export const SearchAutocomplete = compose(
       const url_taxa = `taxa/autocomplete?q=${query}&is_active=true&order_by=${order_by}&per_page=${per_page}`;
       Api.get(url_taxa).then(taxon => {
         taxon.results = taxon.results.slice(0,per_page).map(item => {
-          return {id: item.id, type: 'animal', name: (item.preferred_common_name ? item.preferred_common_name : item.name)};
+          let icon = '';
+          if (item.iconic_taxon_name === 'Amphibia' || item.iconic_taxon_name === 'Mammalia') {
+            icon = MammaliaIcon;
+          }
+          else if (item.iconic_taxon_name === 'Reptilia') {
+            icon = ReptiliaIcon;
+          }
+          else if (item.iconic_taxon_name === 'Aves') {
+            icon = AvesIcon;
+          }
+          else {
+            icon = AnimalIcon;
+          }
+          return {id: item.id, type: 'animal', icon: icon, name: (item.preferred_common_name ? item.preferred_common_name : item.name)};
         });
         Api.get(url_places).then(places => {
           places.results = places.results.map(item => {
@@ -41,7 +57,7 @@ export const SearchAutocomplete = compose(
                 longitude: parseFloat(location[1])
               }
             }
-            return {id: item.id, type: 'place', name: item.display_name, position: position};
+            return {id: item.id, type: 'place', icon: PlaceIcon, name: item.display_name, position: position};
           });
           const results = taxon.results.concat(places.results);
           setItems(results);
@@ -58,6 +74,14 @@ export const SearchAutocomplete = compose(
     onChange: ({setValue, getData, setItems}) => (event, searchBy) => {
       setValue(searchBy);
       getData(searchBy, setItems);
+    },
+    onKeyPress: ({setValue, items, setItems, onChangeValue}) => (event) => {
+      if(event.key === "Enter"){
+        let searchBy = items.shift();
+        setValue('');
+        setItems([]);
+        onChangeValue(searchBy);
+      }
     }
   }),
 )(props =>
@@ -79,7 +103,8 @@ export const SearchAutocomplete = compose(
       return 0;
     }}
     inputProps={{
-      placeholder: "Search"
+      placeholder: "Search",
+      onKeyPress: props.onKeyPress
     }}
     renderMenu={children => (
       <div className={children.length ? "menu" : ''}>
@@ -92,8 +117,8 @@ export const SearchAutocomplete = compose(
         className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
         key={item.id}
       >
-        {item.type==='place' && <img className="button-icon" src={PlaceIcon} alt="" />}
-        {item.type==='animal' && <img className="button-icon" src={AnimalIcon} alt="" />}
+        {item.type==='place' && <img className="button-icon" src={item.icon} alt="" />}
+        {item.type==='animal' && <img className="button-icon" src={item.icon} alt="" />}
         <span>{item.name}</span>
       </div>
     )}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import ReactSVG from "react-svg";
 
 var Logo = require('../images/logo.svg');
 var Name = require('../images/name.svg');
@@ -25,19 +26,19 @@ export default class Header extends Component {
                 <nav>
                   <ul>
                     <li>
-                      <Link className="button" to={'/'}>
-                        <img className='button-icon' src={MapViewIcon} alt="Map View"/>
-                      </Link>
+                      <NavLink exact={true} activeClassName='active' className="button" to={'/'}>
+                        <ReactSVG className='button-icon' svgClassName='svg-icon' path={MapViewIcon} alt="Map View"/>
+                      </NavLink>
                     </li>
                     <li>
-                      <Link className="button" to={'/list'}>
-                        <img className='button-icon' src={ListViewIcon} alt="List View"/>
-                      </Link>
+                      <NavLink exact={true} activeClassName='active' className="button" to={'/list'}>
+                        <ReactSVG className='button-icon' svgClassName='svg-icon' path={ListViewIcon} alt="List View"/>
+                      </NavLink>
                     </li>
                     <li>
-                      <Link className="button" to={'/chart'}>
-                        <img className='button-icon' src={StatsViewIcon} alt="Chart View"/>
-                      </Link>
+                      <NavLink exact={true} activeClassName='active' className="button" to={'/chart'}>
+                        <ReactSVG className='button-icon' svgClassName='svg-icon' path={StatsViewIcon} alt="Chart View"/>
+                      </NavLink>
                     </li>
                   </ul>
                 </nav>

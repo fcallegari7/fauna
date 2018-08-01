@@ -1,16 +1,14 @@
-// ChartView.js
-
 import React, { Component } from "react";
 import Bars from "./chart/Bars";
 import PieChart from "./chart/PieChart";
 import Top from "./chart/Top";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
-const {
-  SearchAutocompleteLocation
-} = require("./search/SearchAutocompleteLocation");
+const SearchAutocompleteLocation = require("./search/SearchAutocompleteLocation");
 
-var ApiService = require("../services/Api").default;
-var Api = new ApiService();
+const ApiService = require("../services/Api").default;
+const Api = new ApiService();
 
 export default class ChartView extends Component {
   constructor() {
@@ -53,9 +51,13 @@ export default class ChartView extends Component {
     const action = "observations/species_counts";
     const query = "";
     const per_page = "5";
-    const iconic_taxa =
-      "Animalia%2CAmphibia%2CAves%2CMammalia%2CMollusca%2CReptilia";
-
+    const allows_taxa = [
+      "Amphibia",
+      "Reptilia",
+      "Aves",
+      "Mammalia",
+    ];
+    const iconic_taxa = encodeURI(allows_taxa.join(','));
     const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&month=${this.state.month}&year=${this.state.year}&per_page=${per_page}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
