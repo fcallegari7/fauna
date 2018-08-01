@@ -225,7 +225,7 @@ footer span{
   margin: auto;
   margin-top: 100px;
   background-color: white;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .card-list{
@@ -406,7 +406,7 @@ footer span{
   width: 100%;
 }
 
-.charts div {
+.charts > div {
   margin: 1rem;
   box-shadow: .3px .3px .6px .6px #03B2A5;
   border-radius: 20px;
@@ -562,7 +562,7 @@ footer span{
 
   .chart-components {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   .chart-navigation {

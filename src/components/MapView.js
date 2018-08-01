@@ -146,7 +146,7 @@ export default class MapView extends Component {
     const taxon_id = encodeURI(searchBy.join(','));
     const search_on = "name";
     const order = "desc";
-    const order_by = "created_at";
+    const order_by = "observed_on";
     const page = "1";
     const per_page = "100";
     const swlng = bounds.swlng;
@@ -158,7 +158,6 @@ export default class MapView extends Component {
       "Reptilia",
       "Aves",
       "Mammalia",
-      // Insecta ??
     ];
     const iconic_taxa = encodeURI(allows_taxa.join(','));
     const url = `${action}?geo=true&mappable=true&identified=true&photos=true&iconic_taxa=${iconic_taxa}&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}`;
@@ -184,13 +183,16 @@ export default class MapView extends Component {
           icon = AnimalIcon;
         }
 
+        const observed_on = new Date(result.time_observed_at);
+
         return {
           key: result.id,
           longitude: parseFloat(result.geojson.coordinates[0]),
           latitude: parseFloat(result.geojson.coordinates[1]),
           place: result.place_guess,
           photos: photos,
-          observed_at: result.time_observed_at,
+          observed_on: observed_on,
+          timezone: result.observed_time_zone,
           observations_count: result.taxon.observations_count,
           name: result.taxon.preferred_common_name,
           icon: icon,
