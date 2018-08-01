@@ -33,7 +33,7 @@ export default class Bars extends Component {
       // Check if returns results than set a valid state
       const observation = data.results.day;
 
-      var labels = Object.keys(observation).map((e) => parseInt(e.slice(-2)));
+      var labels = Object.keys(observation).map((e) => parseInt(e.slice(-2), 10));
       var values = Object.keys(observation).map((e) => observation[e]);
 
       this.setState({

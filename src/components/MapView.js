@@ -7,16 +7,21 @@ import Help from "./map/Help"
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
 
-var SearchIcon = require('../images/search.svg');
-var CloseIcon = require('../images/close.svg');
-var GoIcon = require('../images/go.svg');
-var FilterIcon = require('../images/filter.svg');
-var FilterIconCaptive = require('../images/captivity.svg');
-var FilterIconDate = require('../images/date.svg');
-var FilterIconDistance = require('../images/distance.svg');
+const SearchIcon = require('../images/search.svg');
+const CloseIcon = require('../images/close.svg');
+const GoIcon = require('../images/go.svg');
+const FilterIcon = require('../images/filter.svg');
+const FilterIconCaptive = require('../images/captivity.svg');
+const FilterIconDate = require('../images/date.svg');
+const FilterIconDistance = require('../images/distance.svg');
+const PlaceIcon = require('../images/pin.svg');
+const AnimalIcon = require('../images/raccoon.svg');
+const ReptiliaIcon = require('../images/reptile.svg');
+const AvesIcon = require('../images/bird.svg');
+const MammaliaIcon = require('../images/coyote.svg');
 
-var ApiService = require("../services/Api").default;
-var Api = new ApiService();
+const ApiService = require("../services/Api").default;
+const Api = new ApiService();
 
 export default class MapView extends Component {
   constructor(props) {
@@ -149,12 +154,11 @@ export default class MapView extends Component {
     const nelng = bounds.nelng;
     const nelat = bounds.nelat;
     const allows_taxa = [
-      "Animalia",
       "Amphibia",
+      "Reptilia",
       "Aves",
       "Mammalia",
-      "Mollusca",
-      "Reptilia"
+      // Insecta ??
     ];
     const iconic_taxa = encodeURI(allows_taxa.join(','));
     const url = `${action}?geo=true&mappable=true&identified=true&photos=true&iconic_taxa=${iconic_taxa}&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}`;
@@ -166,6 +170,20 @@ export default class MapView extends Component {
         }
         photos = photos.concat(result.photos.map(item => item.url))
 
+        let icon = '';
+        if (result.taxon.iconic_taxon_name === 'Amphibia' || result.taxon.iconic_taxon_name === 'Mammalia') {
+          icon = MammaliaIcon;
+        }
+        else if (result.taxon.iconic_taxon_name === 'Reptilia') {
+          icon = ReptiliaIcon;
+        }
+        else if (result.taxon.iconic_taxon_name === 'Aves') {
+          icon = AvesIcon;
+        }
+        else {
+          icon = AnimalIcon;
+        }
+
         return {
           key: result.id,
           longitude: parseFloat(result.geojson.coordinates[0]),
@@ -175,6 +193,7 @@ export default class MapView extends Component {
           observed_at: result.time_observed_at,
           observations_count: result.taxon.observations_count,
           name: result.taxon.preferred_common_name,
+          icon: icon,
           wikipedia_url: result.taxon.wikipedia_url
         };
       });
@@ -185,7 +204,6 @@ export default class MapView extends Component {
   }
 
   toggleModal(group) {
-    console.log(1, group, this.state, this)
     let searchIsOpen = false;
     let filterIsOpen = false;
     let helpIsOpen = false;
@@ -226,7 +244,7 @@ export default class MapView extends Component {
                   onChangeValue={this.getMarkers}
                   keywords={this.state.keywords}
                 />
-                {false && <button className="submit" type="submit" onClick={() => this.toggleModal()}>
+                {false && <button className="submit button-large" type="submit" onClick={() => this.toggleModal()}>
                   <img className="button-icon" src={GoIcon} alt="Go" />
                 </button>}
               </div>
@@ -239,7 +257,9 @@ export default class MapView extends Component {
                         this.state.keywords.splice(index, 1);
                         this.setState({keywords: this.state.keywords});
                         this.getMarkers();
-                      }}>(x)</button>
+                      }}>
+                        <img className="button-icon" src={CloseIcon} alt="Close" />
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -311,6 +331,7 @@ export default class MapView extends Component {
           }}
           onPinClose={() => {
             this.updateMarkers = true;
+            this.toggleModal();
           }}
           onChangeValue={this.getMarkers}
           bounds={this.state.bounds}

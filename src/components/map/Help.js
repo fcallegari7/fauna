@@ -10,10 +10,6 @@ var HelpIcon = require('../../images/help.svg');
 var CloseIcon = require('../../images/close.svg');
 
 export default class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className={"help"+(this.props.isOpen ? " open" : '')}>

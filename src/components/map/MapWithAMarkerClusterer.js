@@ -1,11 +1,11 @@
 import React from 'react';
 import { compose, lifecycle, withProps, withState, withStateHandlers } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
-import { debounce } from 'lodash'
+import { debounce } from 'lodash';
+import TimeAgo from 'react-timeago';
 
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 const mapStyles = require("./mapStyles");
-const pinIcon = require('../../images/pin.svg');
 const clusterIcon = require('../../images/pin.svg');
 const defaultZoom = 12;
 
@@ -150,7 +150,7 @@ export const MapWithAMarkerClusterer = compose(
           position={{ lat: marker.latitude, lng: marker.longitude }}
           onClick={ ()=>{props.onToggleOpen(marker.key)} }
           icon={{
-            url: pinIcon
+            url: marker.icon
           }}
         >
           {props.isOpen===marker.key && (
@@ -163,7 +163,9 @@ export const MapWithAMarkerClusterer = compose(
                 </ul>
                 <h2 className="animal-name">{marker.name}</h2>
                 <p className="location">{marker.place}</p>
-                <p className="latest-sighting">Sighting at: <span className=''> {marker.observed_at}</span></p>
+                <p className="latest-sighting">
+                  Sighting at: <TimeAgo date={marker.observed_at} />
+                </p>
                 <p className="sighting-count">Spotted <span className=''>{marker.observations_count}</span> times</p>
                 <a href={marker.wikipedia_url} target='_blank' className="wiki-link">Learn more about the animal </a>
               </div>

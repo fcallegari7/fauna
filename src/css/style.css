@@ -129,15 +129,22 @@ button {
   justify-content: center;
   user-select: none;
 }
-.button-icon{
+.button-icon {
   width: 32px;
+}
+.svg-icon {
+  max-width: 100%;
+  vertical-align: middle;
 }
 .button:hover{
   background-color: #E5F7F6;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.35);
 }
-.button:active{
-  background-color: #F4FBFD;
+.button.active {
+  background-color: #03B2A5;
+}
+.button.active .svg-icon * {
+  fill: #FFF;
 }
 .button-selected, .button-selected:hover, .button-selected:active{
   background-color: #03B2A5;
@@ -621,8 +628,6 @@ footer span{
   box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 9px rgba(0,0,0,0.15);
 }
 .search .searchIcon {
-  /* transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33); */
-  /* transition-duration: 680ms; */
   overflow: hidden;
   z-index: 1;
   position: relative;
@@ -646,9 +651,11 @@ footer span{
   z-index: 5;
   list-style: none;
   max-width: 400px;
+  display: none;
 }
 .search.open .keywords {
-  margin-top: 36px;
+  margin-top: 86px;
+  display: block;
 }
 .search .keywords li {
   background: #FFF;
@@ -661,7 +668,15 @@ footer span{
   background: white;
   color: #03B2A5;
 }
-
+.keywords button {
+  padding: 0;
+  margin-left: 12px;
+  display: inline-flex;
+}
+.keywords .button-icon {
+  width: 14px;
+  padding: 4px
+}
 .searchFormGroup .searchFormInput {
   height: 100%;
   display: block;
