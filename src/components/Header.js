@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import ReactSVG from "react-svg";
 
-var Logo = require('../images/logo.svg');
-var Name = require('../images/name.svg');
-var MapViewIcon = require('../images/mapview.svg');
-var ListViewIcon = require('../images/listview.svg');
-var StatsViewIcon = require('../images/statsview.svg');
+const Logo = require('../images/logo.svg');
+const Name = require('../images/name.svg');
+const MapViewIcon = require('../images/mapview.svg');
+const ListViewIcon = require('../images/listview.svg');
+const StatsViewIcon = require('../images/statsview.svg');
 
 export default class Header extends Component {
     render() {

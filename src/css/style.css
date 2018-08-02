@@ -427,6 +427,7 @@ footer span{
 .spinner {
   align-self: center;
   width: 100px;
+  cursor: wait;
 }
 
 .loader {
@@ -452,7 +453,7 @@ footer span{
   background: white;
 }
 
-.chart-navigation button {
+.chart-navigation .button {
   border-radius: 50px;
   font-size: 1.5rem;
   margin: 1rem;
@@ -462,8 +463,13 @@ footer span{
   border: none;
   outline: none;
 }
-
-.chart-navigation button:hover {
+.chart-navigation .button.inactive,
+.chart-navigation .button.inactive:hover {
+  background: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+.chart-navigation .button:hover {
   color: #0575e6;
 }
 
@@ -1016,7 +1022,9 @@ footer span{
 .close-help {
   width: 16px;
 }
-
+.help .helpIcon {
+  cursor: help;
+}
 .help-title button {
   position: absolute;
   right: 0;

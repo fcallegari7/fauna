@@ -9,12 +9,11 @@ const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
 
 const SearchIcon = require('../images/search.svg');
 const CloseIcon = require('../images/close.svg');
-const GoIcon = require('../images/go.svg');
+const GoIcon = require('../images/arrow.svg');
 const FilterIcon = require('../images/filter.svg');
 const FilterIconCaptive = require('../images/captivity.svg');
 const FilterIconDate = require('../images/date.svg');
 const FilterIconDistance = require('../images/distance.svg');
-const PlaceIcon = require('../images/pin.svg');
 const AnimalIcon = require('../images/raccoon.svg');
 const ReptiliaIcon = require('../images/reptile.svg');
 const AvesIcon = require('../images/bird.svg');

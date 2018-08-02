@@ -1,8 +1,6 @@
-// Pie.js
-
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
-var Spinner = require('../../images/spinner.svg');
+const Spinner = require('../../images/spinner.svg');
 
 export default class PieChart extends Component {
   constructor(props){

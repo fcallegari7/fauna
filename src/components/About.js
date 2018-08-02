@@ -1,11 +1,9 @@
-// About.js
-
 import React, { Component } from 'react';
-var Fabio = require('../images/Fabio.png');
-var Gustavo = require('../images/Gustavo.png');
-var Yar = require('../images/Yar.png');
-var Monika = require('../images/Monika.png');
-var Grible = require('../images/Grible.png');
+const Fabio = require('../images/Fabio.png');
+const Gustavo = require('../images/Gustavo.png');
+const Yar = require('../images/Yar.png');
+const Monika = require('../images/Monika.png');
+const Grible = require('../images/Grible.png');
 
 export default class About extends Component {
     render() {

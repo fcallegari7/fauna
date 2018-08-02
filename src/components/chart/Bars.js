@@ -1,10 +1,8 @@
-// Bars.js
-
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-var ApiService = require("../../services/Api").default;
-var Api = new ApiService();
-var Spinner = require('../../images/spinner.svg');
+const ApiService = require("../../services/Api").default;
+const Api = new ApiService();
+const Spinner = require('../../images/spinner.svg');
 
 export default class Bars extends Component {
   constructor(props) {
@@ -33,8 +31,8 @@ export default class Bars extends Component {
       // Check if returns results than set a valid state
       const observation = data.results.day;
 
-      var labels = Object.keys(observation).map((e) => parseInt(e.slice(-2), 10));
-      var values = Object.keys(observation).map((e) => observation[e]);
+      const labels = Object.keys(observation).map((e) => parseInt(e.slice(-2), 10));
+      const values = Object.keys(observation).map((e) => observation[e]);
 
       this.setState({
         chartData: {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-var SearchIcon = require('../../images/searchicon.svg');
-var FilterIcon = require('../../images/filter.svg');
-var DistanceIcon = require('../../images/distance.svg');
-var DateIcon = require('../../images/date.svg');
-var CaptiveIcon = require('../../images/captivity.svg');
-var PinIcon = require('../../images/pin.svg');
-var HelpIcon = require('../../images/help.svg');
-var CloseIcon = require('../../images/close.svg');
+const SearchIcon = require('../../images/searchicon.svg');
+const FilterIcon = require('../../images/filter.svg');
+const DistanceIcon = require('../../images/distance.svg');
+const DateIcon = require('../../images/date.svg');
+const CaptiveIcon = require('../../images/captivity.svg');
+const PinIcon = require('../../images/pin.svg');
+const HelpIcon = require('../../images/help.svg');
+const CloseIcon = require('../../images/close.svg');
 
 export default class Header extends Component {
   render() {
