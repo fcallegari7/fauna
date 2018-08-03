@@ -1,8 +1,8 @@
-// MapView.js
 import React, { Component } from "react";
 import Distance from "./filters/Distance"
 import Date from "./filters/Date"
 import Help from "./map/Help"
+import * as moment from 'moment';
 
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
@@ -189,8 +189,8 @@ export default class MapView extends Component {
           icon = AnimalIcon;
         }
 
-        const observed_on = new Date(result.time_observed_at);
-
+        const observed_on = moment(result.time_observed_at);
+        
         return {
           key: result.id,
           longitude: parseFloat(result.geojson.coordinates[0]),
