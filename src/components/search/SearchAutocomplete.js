@@ -28,8 +28,8 @@ export const SearchAutocomplete = compose(
       const url_places = `places/autocomplete?q=${query}&order_by=${order_by}&per_page=${per_page}`;
       const url_taxa = `taxa/autocomplete?q=${query}&is_active=true&order_by=${order_by}&per_page=${per_page}`;
       Api.get(url_taxa).then(taxon => {
-        taxon.results = taxon.results.slice(0,per_page).map(item => {
-          let icon = '';
+        taxon.results = taxon.results.map(item => {
+          let icon = AnimalIcon;
           if (item.iconic_taxon_name === 'Amphibia' || item.iconic_taxon_name === 'Mammalia') {
             icon = MammaliaIcon;
           }
@@ -40,10 +40,14 @@ export const SearchAutocomplete = compose(
             icon = AvesIcon;
           }
           else {
-            icon = AnimalIcon;
+            return null;
+          }
+
+          if (item.id === 43584 || item.id === 43583 || item.is_active === false) {
+            return null;
           }
           return {id: item.id, type: 'animal', icon: icon, name: (item.preferred_common_name ? item.preferred_common_name : item.name), wikipedia_url: item.wikipedia_url};
-        });
+        }).filter(item => item).slice(0,per_page);
         Api.get(url_places).then(places => {
           places.results = places.results.map(item => {
             let position = {
