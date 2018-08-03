@@ -24,6 +24,7 @@ html, body {
   margin-top: 101px;
 }
 header {
+  z-index: 99;
   position: fixed;
   top: 0;
   left: 0;
@@ -369,9 +370,20 @@ footer span{
   align-items: center;
 }
 
-.team-member img {
+.team-member .profile {
   width: 140px;
   margin-bottom: 0.4rem;
+}
+
+.team-member .profile-picture {
+  position: relative;
+}
+
+.team-member .linkedin {
+  position: absolute;
+  bottom: 11px;
+  right: 8px;
+  width: 20px;
 }
 
 .team-member h4, .team-member p {
