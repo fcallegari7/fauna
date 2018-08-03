@@ -42,7 +42,7 @@ export const SearchAutocomplete = compose(
           else {
             icon = AnimalIcon;
           }
-          return {id: item.id, type: 'animal', icon: icon, name: (item.preferred_common_name ? item.preferred_common_name : item.name)};
+          return {id: item.id, type: 'animal', icon: icon, name: (item.preferred_common_name ? item.preferred_common_name : item.name), wikipedia_url: item.wikipedia_url};
         });
         Api.get(url_places).then(places => {
           places.results = places.results.map(item => {
@@ -92,8 +92,8 @@ export const SearchAutocomplete = compose(
     onSelect={props.onSelect}
     onChange={props.onChange}
     sortItems={(a,b,c) => {
-      var nameA = a.name.toLowerCase();
-      var nameB = b.name.toLowerCase();
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
       if (nameA < nameB) {
         return -1;
       }
@@ -104,7 +104,8 @@ export const SearchAutocomplete = compose(
     }}
     inputProps={{
       placeholder: "Search",
-      onKeyPress: props.onKeyPress
+      onKeyPress: props.onKeyPress,
+      autoFocus: true
     }}
     renderMenu={children => (
       <div className={children.length ? "menu" : ''}>
@@ -118,7 +119,7 @@ export const SearchAutocomplete = compose(
         key={item.id}
       >
         {item.type==='place' && <img className="button-icon" src={item.icon} alt="" />}
-        {item.type==='animal' && <img className="button-icon" src={item.icon} alt="" />}
+        {item.type==='animal' && <img className="button-icon" src={AnimalIcon} alt="" />}
         <span>{item.name}</span>
       </div>
     )}

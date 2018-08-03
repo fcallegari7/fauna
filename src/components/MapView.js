@@ -28,8 +28,12 @@ export default class MapView extends Component {
 
     this.getMarkers = this.getMarkers.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.setFilter = this.setFilter.bind(this);
     this.setPosition = this.setPosition.bind(this);
     this.updateMarkers = true;
+    this.filterCaptive = null;
+    this.filterDistance = null;
+    this.filterDate = null;
   }
   componentWillMount() {
     this.setState({
@@ -37,6 +41,7 @@ export default class MapView extends Component {
       loading: false,
       searchIsOpen: false,
       filterIsOpen: false,
+      subFilterIsOpen: false,
       helpIsOpen: false,
       searchBy: "",
       keywords: [],
@@ -147,7 +152,7 @@ export default class MapView extends Component {
     const order = "desc";
     const order_by = "observed_on";
     const page = "1";
-    const per_page = "100";
+    const per_page = "200";
     const swlng = bounds.swlng;
     const swlat = bounds.swlat;
     const nelng = bounds.nelng;
@@ -158,8 +163,10 @@ export default class MapView extends Component {
       "Aves",
       "Mammalia",
     ];
+    const captive = this.state.filterCaptive;
     const iconic_taxa = encodeURI(allows_taxa.join(','));
-    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&iconic_taxa=${iconic_taxa}&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}`;
+    const without_taxon_id = 43584; // Remove humans
+    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&identified=true&iconic_taxa=${iconic_taxa}&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}&captive=${captive}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         let photos = [];
@@ -204,27 +211,50 @@ export default class MapView extends Component {
     });
   }
 
-  toggleModal(group) {
+  toggleModal(group, subgroup=false) {
     let searchIsOpen = false;
-    let filterIsOpen = false;
     let helpIsOpen = false;
+    let filterIsOpen = false;
+    let subFilterIsOpen = false;
 
-    if (group==='search') {
-      searchIsOpen = true;
-    }
-    if (group==='filter') {
-      filterIsOpen = true;
-    }
-    if (group==='help') {
-      helpIsOpen = true;
+    switch (group) {
+      case 'search':
+        searchIsOpen = true;
+        break;
+      case 'help':
+        helpIsOpen = true;
+        break;
+      case 'filter':
+        filterIsOpen = true;
+        subFilterIsOpen = subgroup;
+        break;
+      default:
     }
 
     this.setState({
       searchBy: '',
       searchIsOpen: searchIsOpen,
       filterIsOpen: filterIsOpen,
+      subFilterIsOpen: subFilterIsOpen,
       helpIsOpen: helpIsOpen
     });
+  }
+
+  setFilter(filter, value) {
+    if (filter === 'captive') {
+      if (this.state.filterCaptive === value) {
+        this.setState({filterCaptive: null});
+      }
+      else {
+        this.setState({filterCaptive: value});
+      }
+    }
+    else if (filter === 'distance') {
+      this.setState({filterDistance: value});
+    }
+    else if (filter === 'date') {
+      this.setState({filterDate: value});
+    }
   }
 
   render() {
@@ -252,13 +282,17 @@ export default class MapView extends Component {
               {this.state.keywords.length>0 && (
                 <ul className="keywords">
                   {this.state.keywords.map((item, index) => (
-                    <li key={'tag-'+item.type+'-'+item.id} className={'tag-'+item.type}>
+                    <li
+                      key={'tag-'+item.type+'-'+item.id}
+                      className={'tag-'+item.type}
+                      onClick={() => {
+                       this.state.keywords.splice(index, 1);
+                       this.setState({keywords: this.state.keywords});
+                       this.getMarkers();
+                     }}
+                    >
                       {item.name}
-                      <button onClick={() => {
-                        this.state.keywords.splice(index, 1);
-                        this.setState({keywords: this.state.keywords});
-                        this.getMarkers();
-                      }}>
+                      <button className="close">
                         <img className="button-icon" src={CloseIcon} alt="Close" />
                       </button>
                     </li>
@@ -276,47 +310,70 @@ export default class MapView extends Component {
               {this.state.filterIsOpen && (
                 <div className='filterGroup'>
                   <input type="checkbox" className="filter-open" name="filter-open" id="filter-open" />
-                  <div className="button button-large filter-item" onClick={() => this.toggleModal()}>
+                  <div className="button button-large filter-item" onClick={() => this.toggleModal()} title="Close">
                     <img className="button-icon close-filter" src={CloseIcon} alt="Close" />
                   </div>
-                  <div className="button filter-item" onClick={() => this.toggleModal()}>
-                    <img className="button-icon" src={FilterIconCaptive} alt="Captive" />
+                  <div className="filter-item">
+                    <div className="button" onClick={() => this.toggleModal('filter','captive')} title="Captive">
+                      <img className="button-icon" src={FilterIconCaptive} alt="Captive" />
+                    </div>
+                    {this.state.subFilterIsOpen === 'captive' && (
+                      <div className='filter-dialog captive-filter'>
+                        <h3 className='filter-title'>Captivity</h3>
+                        <button className="close" onClick={() => this.toggleModal('filter')} title="Close captive filter">
+                          <img src={CloseIcon} alt="Close" />
+                        </button>
+                        <div className='filter-content'>
+                          <div
+                            className={'captivity-option '+ (this.state.filterCaptive === true ? 'captivity-option-selected' : '')}
+                            onClick={() => this.setFilter('captive', true)}
+                          >
+                            <span>Yes</span>
+                          </div>
+                          <div
+                            className={'captivity-option '+ (this.state.filterCaptive === false ? 'captivity-option-selected' : '')}
+                            onClick={() => this.setFilter('captive', false)}
+                          >
+                            <span>No</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div className="button filter-item" onClick={() => this.toggleModal()}>
-                    <img className="button-icon" src={FilterIconDate} alt="Date" />
+                  <div className="filter-item">
+                    <div className="button" onClick={() => this.toggleModal('filter','date')} title="Date">
+                      <img className="button-icon" src={FilterIconDate} alt="Date" />
+                    </div>
+                    {this.state.subFilterIsOpen === 'date' && (
+                      <div className='filter-dialog date-filter'>
+                        <h3 className='filter-title'>Date</h3>
+                        <button className="close" onClick={() => this.toggleModal('filter')} title="Close date filter">
+                          <img src={CloseIcon} alt="Close" />
+                        </button>
+                        <div className='filter-content'>
+                          <Date />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div className="button filter-item" onClick={() => this.toggleModal()}>
-                    <img className="button-icon" src={FilterIconDistance} alt="Distance" />
+                  <div className="filter-item">
+                    <div className="button" onClick={() => this.toggleModal('filter','distance')} title="Distance">
+                      <img className="button-icon" src={FilterIconDistance} alt="Distance" />
+                    </div>
+                    {this.state.subFilterIsOpen === 'distance' && (
+                      <div className='filter-dialog distance-filter'>
+                        <h3 className='filter-title'>Distance</h3>
+                        <button className="close" onClick={() => this.toggleModal('filter')} title="Close distance filter">
+                          <img src={CloseIcon} alt="Close" />
+                        </button>
+                        <div className='filter-content'>
+                          <Distance />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
-              <div className='filter-dialog captive-filter'>
-                <p className='filter-title'>Captivity</p>
-                  <div className='filter-content'>
-                    <div className='captivity-option captivity-option-selected'>
-                      <p>Yes</p>
-                    </div>
-
-                    <div className='captivity-option'>
-                      <p>No</p>
-                    </div>
-                  </div>
-              </div>
-
-              <div className='filter-dialog distance-filter'>
-                <p className='filter-title'>Distance</p>
-                  <div className='filter-content'>
-                      <Distance />
-                  </div>
-              </div>
-
-              <div className='filter-dialog date-filter'>
-                <p className='filter-title'>Date</p>
-                  <div className='filter-content'>
-                    <Date />
-                  </div>
-              </div>
-
             </div>
 
 

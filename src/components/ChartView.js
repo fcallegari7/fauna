@@ -29,7 +29,6 @@ export default class ChartView extends Component {
 
   getChartData() {
     const action = "observations/species_counts";
-    const query = "";
     const per_page = "5";
     const allows_taxa = [
       "Amphibia",
@@ -40,7 +39,8 @@ export default class ChartView extends Component {
     const iconic_taxa = encodeURI(allows_taxa.join(','));
     const month = this.state.date.format('M');
     const year = this.state.date.format('YYYY');
-    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&month=${month}&year=${year}&per_page=${per_page}`;
+    const without_taxon_id = 43584; // Remove humans
+    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&identified=true&iconic_taxa=${iconic_taxa}&page=1&per_page=${per_page}&month=${month}&year=${year}&without_taxon_id=${without_taxon_id}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         const observation = {

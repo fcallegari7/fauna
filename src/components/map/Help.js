@@ -18,7 +18,10 @@ export default class Header extends Component {
         </div>
         <div className='help-box'>
           <div className='help-title'>
-            <h2>Help</h2><button onClick={() => this.props.toggleModal()}><img className="close-help" src={CloseIcon} alt="Close Help" /></button>
+            <h2>Help</h2>
+            <button className="close" onClick={() => this.props.toggleModal()}>
+              <img className="close-help" src={CloseIcon} alt="Close Help" />
+            </button>
           </div>
           <div className='row row1'>
             <div className='help-image'>

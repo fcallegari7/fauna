@@ -2,8 +2,8 @@ import React from "react";
 import { compose, withState, withHandlers } from "recompose";
 import Autocomplete from "react-autocomplete";
 
-var ApiService = require("../../services/Api").default;
-var Api = new ApiService();
+const ApiService = require("../../services/Api").default;
+const Api = new ApiService();
 
 export const SearchAutocompleteLocation = compose(
   withState("valueId", "setIdValue", ""),

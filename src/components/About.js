@@ -11,8 +11,8 @@ export default class About extends Component {
             <div className="page-wrapper about-wrapper">
                 <h2>About</h2>
 
-                <div class="video">
-                  <iframe title="About the project" src="https://www.youtube.com/embed/_--S0agRqL8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <div className="video">
+                  <iframe title="About the project" src="https://www.youtube.com/embed/_--S0agRqL8" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
                 </div>
 
                 <h3>The Project</h3>
@@ -28,8 +28,8 @@ export default class About extends Component {
                 <h3>The Team</h3>
                 <p>All of that would not be possible without our phenomenal and diverse team of creative, efficient and experienced people. Each of us is specialized in a specific subject, and together we could achieve so much more.</p>
 
-                <div class='team'>
-                  <div class='team-member'>
+                <div className='team'>
+                  <div className='team-member'>
                     <a href='https://www.linkedin.com/in/fabio-callegari7/' target='_blank' rel="noopener noreferrer">
                       <img className='profile' src={Fabio} alt="Fabio Callegari"/>
                       <h4>Fabio Callegari</h4>
@@ -37,7 +37,7 @@ export default class About extends Component {
                     </a>
                   </div>
 
-                  <div class='team-member'>
+                  <div className='team-member'>
                     <a href='https://www.linkedin.com/in/gustavoteixeiragomes/' target='_blank' rel="noopener noreferrer">
                       <img className='profile' src={Gustavo} alt="Gustavo Gomes"/>
                       <h4>Gustavo Gomes</h4>
@@ -45,7 +45,7 @@ export default class About extends Component {
                     </a>
                   </div>
 
-                  <div class='team-member'>
+                  <div className='team-member'>
                     <a href='https://www.linkedin.com/in/yaroslavkostiukov/' target='_blank' rel="noopener noreferrer">
                       <img className='profile' src={Yar} alt="Yaroslav Kostiukov"/>
                       <h4>Yaroslav Kostiukov</h4>
@@ -53,7 +53,7 @@ export default class About extends Component {
                     </a>
                   </div>
 
-                  <div class='team-member'>
+                  <div className='team-member'>
                     <a href='https://www.linkedin.com/in/monika-sharma-427625b8/' target='_blank' rel="noopener noreferrer">
                       <img className='profile' src={Monika} alt="Monika Sharma"/>
                       <h4>Monika Sharma</h4>
@@ -61,7 +61,7 @@ export default class About extends Component {
                     </a>
                   </div>
 
-                  <div class='team-member'>
+                  <div className='team-member'>
                     <a href='https://www.linkedin.com/in/grible-shaji-160557158/' target='_blank' rel="noopener noreferrer">
                       <img className='profile' src={Grible} alt="Grible Shaji"/>
                       <h4>Grible Shaji</h4>
