@@ -1027,7 +1027,13 @@ footer span{
   display: flex;
   justify-content: space-between;
 }
-
+.date-filter-container {
+  position: relative;
+  line-height: 34px;
+}
+ .date-filter-container.date-end .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle {
+  left: 80%;
+}
 .react-datepicker-wrapper{
   text-align: center;
 }

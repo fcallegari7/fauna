@@ -190,7 +190,7 @@ export default class MapView extends Component {
         }
 
         const observed_on = moment(result.time_observed_at);
-        
+
         return {
           key: result.id,
           longitude: parseFloat(result.geojson.coordinates[0]),
