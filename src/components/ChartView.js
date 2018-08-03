@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Bars from "./chart/Bars";
 import PieChart from "./chart/PieChart";
 import Top from "./chart/Top";
+import * as moment from 'moment';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-const SearchAutocompleteLocation = require("./search/SearchAutocompleteLocation");
+// const SearchAutocompleteLocation = require("./search/SearchAutocompleteLocation");
 
 const ApiService = require("../services/Api").default;
 const Api = new ApiService();
@@ -16,40 +17,18 @@ export default class ChartView extends Component {
     this.state = {
       observations: [],
       top_observation: '',
-      month: '',
-      year: '',
-      name: ''
+      date: moment(),
     };
     this.decreaseDate = this.decreaseDate.bind(this);
     this.increaseDate = this.increaseDate.bind(this);
-    this.getMonthName = this.getMonthName.bind(this);
-  }
-
-  componentWillMount() {
-    this.getMonthName();
   }
 
   componentDidMount() {
     this.getChartData();
   }
 
-  getMonthName() {
-    let m = new Date();
-    let month = m.getMonth() + 1;
-    let year = m.getFullYear();
-    let n = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    var name = n[month - 1];
-
-    this.setState({
-      month: month,
-      year: year,
-      name: name
-    });
-  }
-
   getChartData() {
     const action = "observations/species_counts";
-    const query = "";
     const per_page = "5";
     const allows_taxa = [
       "Amphibia",
@@ -58,7 +37,10 @@ export default class ChartView extends Component {
       "Mammalia",
     ];
     const iconic_taxa = encodeURI(allows_taxa.join(','));
-    const url = `${action}?&q=${query}&iconic_taxa=${iconic_taxa}&month=${this.state.month}&year=${this.state.year}&per_page=${per_page}`;
+    const month = this.state.date.format('M');
+    const year = this.state.date.format('YYYY');
+    const without_taxon_id = 43584; // Remove humans
+    const url = `${action}?geo=true&mappable=true&identified=true&photos=true&identified=true&iconic_taxa=${iconic_taxa}&page=1&per_page=${per_page}&month=${month}&year=${year}&without_taxon_id=${without_taxon_id}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
         const observation = {
@@ -83,60 +65,18 @@ export default class ChartView extends Component {
   // }
 
   decreaseDate() {
-    let currentMonth = this.state.month;
-    let currentYear = this.state.year;
-    let newMonth;
-    let newYear;
-    if (currentMonth > 1) {
-      newMonth = currentMonth - 1;
-      newYear = this.state.year;
-    } else if (currentMonth === 1) {
-      newMonth = 12;
-      newYear = currentYear - 1;
-    }
     this.setState({
-      month: newMonth,
-      year: newYear
-    });
-    this.updateMonthName();
-    this.getChartData();
+      date: this.state.date.subtract(1, 'month'),
+    }, () => this.getChartData());
   }
 
   increaseDate() {
-    let currentMonth = this.state.month;
-    let currentYear = this.state.year;
-    let newMonth;
-    let newYear;
-    let m = new Date();
-    let month = m.getMonth() + 1;
-    let year = m.getFullYear();
-    if (currentMonth === month && currentYear === year) {
-      return;
-    } else if (currentMonth < 12) {
-      newMonth = currentMonth + 1;
-      newYear = this.state.year;
-    } else if (currentMonth === 12) {
-      newMonth = 1;
-      newYear = currentYear + 1;
+    if (!this.state.date.isSame(moment(), 'month')) {
+      this.setState({
+        date: this.state.date.add(1, 'month'),
+      }, () => this.getChartData());
     }
-    this.setState({
-      month: newMonth,
-      year: newYear
-    })
-    this.updateMonthName();
-    this.getChartData();
   }
-
-updateMonthName() {
-  let month = this.state.month;
-  let n = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  var name = n[month - 1];
-
-  this.setState({
-    name: name
-  });
-}
-
 
   render() {
     return (
@@ -155,8 +95,10 @@ updateMonthName() {
             <button className='button' onClick={this.decreaseDate}>
               &lt;
             </button>
-            <h2 className='month-title'>{this.state.name} {this.state.year}</h2>
-            <button className='button' onClick={this.increaseDate}>
+            <h2 className='month-title'>
+              <Moment format="MMMM YYYY">{this.state.date}</Moment>
+            </h2>
+            <button className={'button' + (this.state.date.isSame(moment(), 'month') ? ' inactive' : '')} onClick={this.increaseDate}>
               &gt;
             </button>
           </div>
@@ -167,7 +109,7 @@ updateMonthName() {
             <Top value={this.state.top_observation} />
           </div>
           <div className='charts'>
-            <Bars value={this.state.top_observation} month={this.state.month} year={this.state.year} />
+            <Bars value={this.state.top_observation} month={this.state.date.format('M')} year={this.state.date.format('YYYY')} />
             <PieChart value={this.state.observations} />
           </div>
         </div>

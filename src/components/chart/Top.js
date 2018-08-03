@@ -1,7 +1,5 @@
-// Top.js
-
 import React, { Component } from "react";
-var Spinner = require('../../images/spinner.svg');
+const Spinner = require('../../images/spinner.svg');
 
 export default class Top extends Component {
   constructor(props){
