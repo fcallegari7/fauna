@@ -4,6 +4,7 @@ const Gustavo = require('../images/Gustavo.png');
 const Yar = require('../images/Yar.png');
 const Monika = require('../images/Monika.png');
 const Grible = require('../images/Grible.png');
+const Linkedin = require('../images/linkedin.svg');
 
 export default class About extends Component {
     render() {
@@ -31,7 +32,10 @@ export default class About extends Component {
                 <div className='team'>
                   <div className='team-member'>
                     <a href='https://www.linkedin.com/in/fabio-callegari7/' target='_blank' rel="noopener noreferrer">
-                      <img className='profile' src={Fabio} alt="Fabio Callegari"/>
+                      <picture className='profile-picture'>
+                        <img className='profile' src={Fabio} alt="Fabio Callegari"/>
+                        <img className='linkedin' src={Linkedin} alt="linkedin logo"/>
+                      </picture>
                       <h4>Fabio Callegari</h4>
                       <p>Team Leader</p>
                     </a>
@@ -39,7 +43,10 @@ export default class About extends Component {
 
                   <div className='team-member'>
                     <a href='https://www.linkedin.com/in/gustavoteixeiragomes/' target='_blank' rel="noopener noreferrer">
-                      <img className='profile' src={Gustavo} alt="Gustavo Gomes"/>
+                      <picture className='profile-picture'>
+                        <img className='profile' src={Gustavo} alt="Gustavo Gomes"/>
+                        <img className='linkedin' src={Linkedin} alt="linkedin logo"/>
+                      </picture>
                       <h4>Gustavo Gomes</h4>
                       <p>Lead Developer</p>
                     </a>
@@ -47,7 +54,10 @@ export default class About extends Component {
 
                   <div className='team-member'>
                     <a href='https://www.linkedin.com/in/yaroslavkostiukov/' target='_blank' rel="noopener noreferrer">
-                      <img className='profile' src={Yar} alt="Yaroslav Kostiukov"/>
+                      <picture className='profile-picture'>
+                        <img className='profile' src={Yar} alt="Yaroslav Kostiukov"/>
+                        <img className='linkedin' src={Linkedin} alt="linkedin logo"/>
+                      </picture>
                       <h4>Yaroslav Kostiukov</h4>
                       <p>Lead Designer</p>
                     </a>
@@ -55,7 +65,10 @@ export default class About extends Component {
 
                   <div className='team-member'>
                     <a href='https://www.linkedin.com/in/monika-sharma-427625b8/' target='_blank' rel="noopener noreferrer">
-                      <img className='profile' src={Monika} alt="Monika Sharma"/>
+                      <picture className='profile-picture'>
+                        <img className='profile' src={Monika} alt="Monika Sharma"/>
+                        <img className='linkedin' src={Linkedin} alt="linkedin logo"/>
+                      </picture>
                       <h4>Monika Sharma</h4>
                       <p>UX Designer</p>
                     </a>
@@ -63,7 +76,10 @@ export default class About extends Component {
 
                   <div className='team-member'>
                     <a href='https://www.linkedin.com/in/grible-shaji-160557158/' target='_blank' rel="noopener noreferrer">
-                      <img className='profile' src={Grible} alt="Grible Shaji"/>
+                      <picture className='profile-picture'>
+                        <img className='profile' src={Grible} alt="Grible Shaji"/>
+                        <img className='linkedin' src={Linkedin} alt="linkedin logo"/>
+                      </picture>
                       <h4>Grible Shaji</h4>
                       <p>UI Designer</p>
                     </a>
