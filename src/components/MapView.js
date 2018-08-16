@@ -1,8 +1,8 @@
-// MapView.js
 import React, { Component } from "react";
 import Distance from "./filters/Distance"
 import Date from "./filters/Date"
 import Help from "./map/Help"
+import * as moment from 'moment';
 
 const { SearchAutocomplete } = require("./search/SearchAutocomplete");
 const { MapWithAMarkerClusterer } = require("./map/MapWithAMarkerClusterer");
@@ -165,7 +165,7 @@ export default class MapView extends Component {
     ];
     const captive = this.state.filterCaptive;
     const iconic_taxa = encodeURI(allows_taxa.join(','));
-    const without_taxon_id = 43584; // Remove humans
+    const without_taxon_id = encodeURI([43583,43584].join(',')); // Remove humans
     const url = `${action}?geo=true&mappable=true&identified=true&photos=true&identified=true&iconic_taxa=${iconic_taxa}&taxon_id=${taxon_id}&search_on=${search_on}&order=${order}&order_by=${order_by}&page=${page}&per_page=${per_page}&swlng=${swlng}&swlat=${swlat}&nelng=${nelng}&nelat=${nelat}&captive=${captive}`;
     Api.get(url).then(data => {
       data.results = data.results.map((result, key) => {
@@ -189,7 +189,7 @@ export default class MapView extends Component {
           icon = AnimalIcon;
         }
 
-        const observed_on = new Date(result.time_observed_at);
+        const observed_on = moment(result.time_observed_at);
 
         return {
           key: result.id,

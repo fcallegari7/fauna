@@ -39,11 +39,10 @@ export default class PieChart extends Component {
     });
   }
 
-
   render() {
     if (Object.keys(this.state.chartData).length > 0) {
       return (
-        <div>
+        <div className="chart-container">
           <Pie
             data={this.state.chartData}
             options={{
@@ -53,11 +52,13 @@ export default class PieChart extends Component {
                 fontSize: 25
               },
               responsive: true,
+              maintainAspectRatio: false,
               legend: {
                 display: true,
-                position: "top"
+                position: "bottom"
               }
             }}
+            redraw={true}
           />
         </div>
       );

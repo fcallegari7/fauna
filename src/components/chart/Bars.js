@@ -52,7 +52,7 @@ export default class Bars extends Component {
   render() {
     if (Object.keys(this.state.chartData).length > 0) {
       return (
-        <div>
+        <div className="chart-container">
           <Bar
             data={this.state.chartData}
             options={{
@@ -67,7 +67,7 @@ export default class Bars extends Component {
                 position: "top"
               },
               responsive: true,
-              maintainAspectRatio: true,
+              maintainAspectRatio: false,
               scales: {
                 yAxes: [
                   {
@@ -78,6 +78,7 @@ export default class Bars extends Component {
                 ]
               }
             }}
+            redraw={true}
           />
         </div>
       );

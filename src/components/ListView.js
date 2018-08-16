@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
+import * as moment from 'moment';
 import Moment from 'react-moment';
 import 'moment-timezone';
+
 const ApiService = require('../services/Api').default;
 const Api = new ApiService();
 const Spinner = require ('../images/spinner.svg')
@@ -51,7 +53,7 @@ export default class ListView extends Component {
           // photos = photos.concat(result.observation_photos.map(item => item.photo.url))
 
           // const observed_on = new Date(result.created_at).toLocaleString();
-          const observed_on = new Date(result.time_observed_at);
+          const observed_on = moment(result.time_observed_at);
 
           return (<li key={result.id}>
               <p className="photo">
