@@ -87,6 +87,15 @@ export default class About extends Component {
 
                 </div>
 
+                <h3>The Presentation</h3>
+                <p>Did you get interested on our project? Watch our 8 min presentation!</p>
+
+                <p>We presented Fauna on August 3rd 2018, at Langara College in Vancouver, BC.</p>
+
+                <div className="video">
+                  <iframe title="Project presentation" src="https://www.youtube.com/embed/SRsjyWAPFkA" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+                </div>
+
 
             </div>
         )
